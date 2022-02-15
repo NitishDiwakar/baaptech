@@ -77,6 +77,21 @@ class ManageController extends AppController
 
     public function dashboard()
     {
+        // echo $this->request->getSession()->read('admin_id');
+
+        $admin_id = $this->request->getSession()->read('admin_id');
+
+        /*if(isset($admin_id))
+        {
+
+        }*/
+
+        if(!isset($admin_id))
+        {
+            echo "access denied!";
+            exit;
+        }
+
         $this->viewBuilder()->setLayout('custom_manage');
     }
 
@@ -92,6 +107,13 @@ class ManageController extends AppController
     public function users()
     {
 
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM users WHERE 
+                email_verified = 1 AND user_level != 1 AND is_deleted = 0
+             ');
+            $results = $stmt ->fetchAll('assoc');
+            $this->set(compact('results'));
+
 
         $this->viewBuilder()->setLayout('custom_manage');
 
@@ -105,6 +127,102 @@ class ManageController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
+    public function usersDelete()
+    {
+        // echo "string";
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        if(isset($admin_id))
+        {
+            $user_id = $_GET['id'];
+            // echo $user_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE users 
+                    SET is_deleted = 1
+                    WHERE 
+                    id = "'.$user_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('User Deleted. '));
+                 return $this->redirect(['action' => 'users']);
+
+
+        }
+
+        if(!isset($admin_id))
+        {
+            echo "You are not allowed for this action";
+            exit;
+        }
+
+        
+    }
+
+// n
+        public function groupsVerify()
+    {
+        // echo "string";
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        if(isset($admin_id))
+        {
+            $group_id = $_GET['id'];
+            // echo $user_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE groups 
+                    SET is_approved = 1
+                    WHERE 
+                    id = "'.$group_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Group Approved. '));
+                 return $this->redirect(['action' => 'groups']);
+
+
+        }
+
+        if(!isset($admin_id))
+        {
+            echo "You are not allowed for this action";
+            exit;
+        }
+
+        
+    }
+// en
+
+
+public function groups()
+    {
+
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM groups INNER JOIN states ON 
+                groups.state_id = states.s_id
+             WHERE 
+                groups.is_approved = 0
+                ORDER BY groups.id ASC
+             ');
+            $unapproved_groups = $stmt ->fetchAll('assoc');
+            $this->set(compact('unapproved_groups'));
+
+            // Approved groups
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM groups INNER JOIN states ON 
+                groups.state_id = states.s_id
+             WHERE 
+                groups.is_approved = 1
+                ORDER BY groups.id ASC
+             ');
+            $approved_groups = $stmt ->fetchAll('assoc');
+            $this->set(compact('approved_groups'));
+
+
+        $this->viewBuilder()->setLayout('custom_manage');
+
+    }
     
 
     // Login

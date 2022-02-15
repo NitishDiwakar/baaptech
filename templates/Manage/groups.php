@@ -86,7 +86,8 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+                        <!-- <h1 class="h3 mb-0 text-gray-800">Users</h1> -->
+                        <h1 class="h3 mb-0 text-gray-800">Groups</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fa fa-comments fa-sm text-white-50"></i> Submitted Groups</a>
                     </div>
@@ -155,31 +156,40 @@
                     <!-- Content Row -->
 
 <?php echo $this->Flash->render() ?>
+<h4>Unapproved Groups</h4>
                     <div class="row">
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Joined at</th>
+      <th scope="col">State</th>
+      <th scope="col">City</th>
+      <th scope="col">Whatsapp Group Name</th>
+      <th scope="col">Whatsapp Group Link</th>
+      <th scope="col">Telegram Group Name</th>
+      <th scope="col">Telegram Group Link</th>
+      <th scope="col">Submitted at</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
     <?php 
         $i = 1;
-        foreach ($results as $result)
+        foreach ($unapproved_groups as $unapproved_group)
         {
 
     ?>
-    <tr>
+    <tr class="alert alert-warning">
       <th scope="row"><?= $i ?></th>
-      <td><?php echo $result['Name']; ?></td>
-      <td><?php echo $result['email']; ?></td>
-      <td><?php echo $result['created']; ?></td>
+      <td><?php echo $unapproved_group['name']; ?></td>
+      <td><?php echo $unapproved_group['city']; ?></td>
+      <td><?php echo $unapproved_group['wa_name']; ?></td>
+      <td><a href="<?php echo $unapproved_group['wa_link']; ?>" target="_blank">Click here</a></td>
+      <td><?php echo $unapproved_group['tel_name']; ?></td>
+      <td><a href="<?php echo $unapproved_group['tel_link']; ?>" target="_blank">Click here</a></td>
+      <td><?php echo $unapproved_group['created']; ?></td>
       <td>
-          <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/users_delete?id='.$result['id'].' ');?>"><i class="fa fa-trash"></i></a>
+          <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$unapproved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
       </td>
     </tr>
 <?php 
@@ -189,8 +199,54 @@ $i++;
    
   </tbody>
 </table>
+
+
+<!-- Approved groups -->
+
                     </div>
-                    
+<h4>Approved Groups</h4>
+<div class="row">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">State</th>
+      <th scope="col">City</th>
+      <th scope="col">Whatsapp Group Name</th>
+      <th scope="col">Whatsapp Group Link</th>
+      <th scope="col">Telegram Group Name</th>
+      <th scope="col">Telegram Group Link</th>
+      <th scope="col">Submitted at</th>
+      <!-- <th scope="col">Actions</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+        $i = 1;
+        foreach ($approved_groups as $approved_group)
+        {
+
+    ?>
+    <tr class="alert alert-success">
+      <th scope="row"><?= $i ?></th>
+      <td><?php echo $approved_group['name']; ?></td>
+      <td><?php echo $approved_group['city']; ?></td>
+      <td><?php echo $approved_group['wa_name']; ?></td>
+      <td><a href="<?php echo $approved_group['wa_link']; ?>" target="_blank">Click here</a></td>
+      <td><?php echo $approved_group['tel_name']; ?></td>
+      <td><a href="<?php echo $approved_group['tel_link']; ?>" target="_blank">Click here</a></td>
+      <td><?php echo $approved_group['created']; ?></td>
+      <!-- <td>
+          <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$approved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
+      </td> -->
+    </tr>
+<?php 
+$i++;
+}
+?>
+   
+  </tbody>
+</table>                    
 
                 </div>
                 <!-- /.container-fluid -->

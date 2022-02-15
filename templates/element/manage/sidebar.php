@@ -3,6 +3,24 @@
                 Interface
             </div>
 
+            <!-- Nav Item - Groups -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <i class="fa fa-comments"></i>
+                    <span>Groups</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Submitted Groups:</h6>
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/groups');?>">All Groups </a> 
+                        <!-- <a class="collapse-item" href="#">Telegram Groups <i class="fa fa-telegram"></i></a> -->
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -19,23 +37,8 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
-                    <i class="fa fa-comments"></i>
-                    <span>Groups</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Submitted Groups:</h6>
-                        <a class="collapse-item" href="#">All Groups </a> 
-                        <!-- <a class="collapse-item" href="#">Telegram Groups <i class="fa fa-telegram"></i></a> -->
-                    </div>
-                </div>
-            </li>
+            
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider">
