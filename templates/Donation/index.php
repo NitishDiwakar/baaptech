@@ -37,12 +37,7 @@
                             <div >
                                 
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    We are the front which is fighting against pharma controlled politicans, who are making decisons to inject us with unknown substances, on basis of some fake imaginary virus come join us, if you wana survive n thrive, fake science is there weapon, pimp politicans are there weapon, which are cooperating to inject people with vaccines, every day they come up with new variants, which are basically computer simulation, with new variants comes new booster dose.
                                 </p>
                                 <!-- <center><button class="btn btn-primary rounded-pill btn-lg " onclick="location.href='/baap_new/login';">Donate now</button></center> -->
                                 <center><a class="btn btn-primary rounded-pill btn-lg " href="https://pancakeswap.finance/add/BNB/0x6798cb97ADd4C2dcE309e24A8fecA66D55548aaa" target="_blank">Donate now</a></center>
