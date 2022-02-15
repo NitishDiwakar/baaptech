@@ -89,6 +89,14 @@ class ManageController extends AppController
         // exit;
     }
 
+    public function users()
+    {
+
+
+        $this->viewBuilder()->setLayout('custom_manage');
+
+    }
+
 
     /**
      * View method
