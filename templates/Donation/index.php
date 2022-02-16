@@ -35,12 +35,20 @@
                         <div class="container-fluid px-5">
                             <!-- Some text and donation button -->
                             <div >
-                                
-                                <p>
-                                    We are the front which is fighting against pharma controlled politicans, who are making decisons to inject us with unknown substances, on basis of some fake imaginary virus come join us, if you wana survive n thrive, fake science is there weapon, pimp politicans are there weapon, which are cooperating to inject people with vaccines, every day they come up with new variants, which are basically computer simulation, with new variants comes new booster dose.
-                                </p>
+    <h5>You can support BAAP network
+in some ways</h5>                            
+    <p>
+       Buy buying BAAP Tokens from <a href="https://pancakeswap.finance/add/BNB/0x6798cb97ADd4C2dcE309e24A8fecA66D55548aaa" target="_blank" style="text-decoration: none">pancakeswap</a>  
+    </p>
+    <p>We will soon launch NFT'S
+you can buy our NFT.</p>
+<p>
+    If you dont know how to use cryptocurrency, you can donate us using upi
+you need to register to pay using upi, so that we can track funds donated to us
+and display it.
+</p>
                                 <!-- <center><button class="btn btn-primary rounded-pill btn-lg " onclick="location.href='/baap_new/login';">Donate now</button></center> -->
-                                <center><a class="btn btn-primary rounded-pill btn-lg " href="https://pancakeswap.finance/add/BNB/0x6798cb97ADd4C2dcE309e24A8fecA66D55548aaa" target="_blank">Donate now</a></center>
+                                <!-- <center><a class="btn btn-primary rounded-pill btn-lg " href="https://pancakeswap.finance/add/BNB/0x6798cb97ADd4C2dcE309e24A8fecA66D55548aaa" target="_blank">Donate now</a></center> -->
                             </div>
                         </div>
                     </div>
