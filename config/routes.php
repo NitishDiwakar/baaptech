@@ -56,6 +56,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/login', ['controller' => 'Users', 'action' =>  'login']);
         $builder->connect('/signup', ['controller' => 'Users', 'action' =>  'add']);
         $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+
+        // admin
+         $builder->connect('/manage', ['controller' => 'Manage', 'action' =>  'login']);
         // en
 
         /*

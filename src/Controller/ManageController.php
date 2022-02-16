@@ -92,8 +92,27 @@ class ManageController extends AppController
             exit;
         }
 
+        // Count total users
+        $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT COUNT(*) as total FROM `users`  WHERE is_deleted = 0 AND user_level = 0 AND email_verified = 1 
+             ');
+            $total_users = $stmt ->fetchAll('assoc');
+            // echo $total_users['count'];
+            $total_users = $total_users[0]['total'];
+            // print_r($total_users);
+            $this->set(compact('total_users'));
+
+        // Count pending gruop submissions
+            $stmt = $conn->execute('SELECT COUNT(*) as total FROM `groups`  WHERE  is_approved = 0 
+             ');
+            $pending_groups = $stmt ->fetchAll('assoc');
+            // echo $total_users['count'];
+            $total_pending_groups = $pending_groups[0]['total'];
+            // print_r($total_users);
+            $this->set(compact('total_pending_groups'));
+
         $this->viewBuilder()->setLayout('custom_manage');
-    }
+        }
 
     public function logout()
     {
