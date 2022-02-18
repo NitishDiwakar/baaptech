@@ -42,7 +42,7 @@ class GroupsController extends AppController
 
         $stmt = $conn->execute('SELECT * FROM states INNER JOIN groups ON 
             states.s_id = groups.state_id
-            WHERE groups.wa_link IS NOT NULL
+            WHERE groups.wa_link IS NOT NULL AND groups.is_approved = 1
             ORDER BY states.name
          ');
         $wa_groups = $stmt ->fetchAll('assoc');
@@ -51,7 +51,7 @@ class GroupsController extends AppController
         // Telegram groups
         $stmt = $conn->execute('SELECT * FROM groups INNER JOIN states ON 
             groups.state_id = states.s_id
-            WHERE groups.tel_link IS NOT NULL
+            WHERE groups.tel_link IS NOT NULL AND groups.is_approved = 1
             ORDER BY states.name
          ');
         $tel_groups = $stmt ->fetchAll('assoc');

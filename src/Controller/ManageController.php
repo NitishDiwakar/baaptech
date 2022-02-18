@@ -111,6 +111,18 @@ class ManageController extends AppController
             // print_r($total_users);
             $this->set(compact('total_pending_groups'));
 
+        // Count verified donations
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT SUM(amt_donated) FROM `donation` WHERE is_approved = 1 
+             ');
+            $total_donation = $stmt ->fetchAll('assoc');
+            // echo $total_users['count'];
+            // print_r($total_donation); 
+            // echo $total_donation[0]['SUM(amt_donated)'];
+            $total_donation = $total_donation[0]['SUM(amt_donated)'];
+            // print_r($total_users);
+            $this->set(compact('total_donation'));
+
         $this->viewBuilder()->setLayout('custom_manage');
         }
 
@@ -180,7 +192,7 @@ class ManageController extends AppController
     }
 
 // n
-        public function groupsVerify()
+    public function groupsVerify()
     {
         // echo "string";
 
@@ -244,7 +256,102 @@ public function groups()
     }
     
 
-    // Login
+    // Donations
+
+    public function donationsPending()
+    {
+
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM `donation` WHERE is_approved = 0 AND is_deleted = 0
+             ');
+            $donations_pending = $stmt ->fetchAll('assoc');
+            $this->set(compact('donations_pending'));
+
+            // Approved groups
+
+
+        $this->viewBuilder()->setLayout('custom_manage');
+
+    }
+
+    // Delete Donations
+    public function donationsDelete()
+    {
+        // echo "string";
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        // echo $admin_id; exit;
+        if(isset($admin_id))
+        {
+            $donation_id = $_GET['id'];
+            // echo $donation_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE donation 
+                    SET is_deleted = 1
+                    WHERE 
+                    did = "'.$donation_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Entry deleted. '));
+                 return $this->redirect(['action' => 'donationsPending']);
+
+
+        }
+
+        if(!isset($admin_id))
+        {
+            echo "Something went wrong";
+            exit;
+        }
+     
+    } // end delete donation
+
+    // Verify donation
+    public function donationsVerify()
+    {
+        // echo "string";
+
+
+    $conn = ConnectionManager::get('default');
+    $stmt = $conn->execute('SELECT * FROM `donation` WHERE is_approved = 1 AND is_deleted = 0
+     ');
+    $donations_pending = $stmt ->fetchAll('assoc');
+    $this->set(compact('donations_pending'));
+
+
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        // echo $admin_id; exit;
+       if(isset($_GET['id']))
+       {
+         if(isset($admin_id))
+        {
+            $donation_id = $_GET['id'];
+            // echo $donation_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE donation 
+                    SET is_approved = 1
+                    WHERE 
+                    did = "'.$donation_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Donation verified. '));
+                 return $this->redirect(['action' => 'donations_verify']);
+
+
+        }
+
+        if(!isset($admin_id))
+        {
+            echo "Something went wrong";
+            exit;
+        }
+       }
+
+        $this->viewBuilder()->setLayout('custom_manage');
+    } // end verify donation
     
 
 }

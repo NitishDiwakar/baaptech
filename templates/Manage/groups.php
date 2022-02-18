@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $this->Url->build('/manage/dashboard');?>">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -217,6 +217,7 @@ $i++;
       <th scope="col">Telegram Group Name</th>
       <th scope="col">Telegram Group Link</th>
       <th scope="col">Submitted at</th>
+      <th scope="col">Actions</th>
       <!-- <th scope="col">Actions</th> -->
     </tr>
   </thead>
@@ -239,7 +240,11 @@ $i++;
       <!-- <td>
           <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$approved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
       </td> -->
+      <td>
+          <a title="Remove" class="btn btn-danger btn-sm disabled" onclick="return confirm('Are you sure, you want to delete this user?')" href="#"><i class="fa fa-trash"></i></a>
+      </td>
     </tr>
+
 <?php 
 $i++;
 }

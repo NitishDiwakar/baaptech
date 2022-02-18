@@ -23,7 +23,12 @@ class HomeController extends AppController
        
     }
 
-
+    // Method for testing custom functions
+    public function test()
+    {
+        $this->viewBuilder()->setLayout('custom_home');
+       
+    }
 
     /**
      * View method

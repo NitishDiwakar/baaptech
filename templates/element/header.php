@@ -12,7 +12,7 @@
                     <i class="bi-list"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0" style="font-size: 80%;">
                         <li class="nav-item">
                             <?php 
                                 echo $this->Html->link(

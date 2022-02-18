@@ -49,6 +49,24 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <!-- <i class="fas fa-fw fa-folder"></i> -->
+                    <i class="fa fa-inr"></i>
+                    <span>Donations</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Registered users</h6>
+                       
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/donations_pending');?>">Pending Donations</a>
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/donations_verify');?>">Verified Donations</a>
+                      
+                    </div>
+                </div>
+            </li>
+
             <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>BAAP Admin - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $this->Url->build('/manage/dashboard');?>">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="<?php echo $this->Url->build('/manage/dashboard');?>">
+                <a class="nav-link" href="#">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <span>Dashboard</span></a>
             </li>
@@ -86,110 +86,84 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Pending Donations</h1>
                         <a href="<?php echo $this->Url->build('/manage/groups');?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fa fa-comments fa-sm text-white-50"></i> Submitted Groups</a>
+                                class="fa fa-inr fa-sm text-white-50"></i> Verified Donations</a>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- Pending Requests Card Example -->
+<?php // print_r($donations_pending) ?>
+                       
                         
                     </div>
 
                     <!-- Content Row -->
-
-                    
-
-                    <!-- Content Row -->
-
-<?php echo $this->Flash->render() ?>
-                    <div class="row">
-<table class="table">
+ <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Test</button>
+                    <table class="table table-responsive">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
+      <th scope="col">Full Name</th>
       <th scope="col">Email</th>
-      <th scope="col">Joined at</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Binance Address</th>
+      <th scope="col">State</th>
+      <th scope="col">City</th>
+      <th scope="col">Amount Donated</th>
+      <th scope="col">Message</th>
+      <th scope="col">Bank Ref #</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
     <?php 
-        $i = 1;
-        foreach ($results as $result)
-        {
-
-    ?>
+    $i = 1; 
+    foreach($donations_pending as $donation)
+    {
+        
+?>
     <tr>
       <th scope="row"><?= $i ?></th>
-      <td><?php echo $result['Name']; ?></td>
-      <td><?php echo $result['email']; ?></td>
-      <td><?php echo $result['created']; ?></td>
+      <td><?= $donation['full_name']; ?></td>
+      <td><?= $donation['email']; ?></td>
+      <td><?= $donation['mobile']; ?></td>
+      <!-- <td><?= $donation['binanceaddress']; ?></td> -->
+      <td><?php  
+      $in = $donation['binanceaddress'];
+      $out = strlen($in) > 15 ? substr($in,0,15)."..." : $in;
+      echo $out;
+  ?></td>
+      <td><?= $donation['state']; ?></td>
+      <td><?= $donation['city']; ?></td>
+      <td><?= $donation['amt_donated']; ?></td>
       <td>
-          <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/users_delete?id='.$result['id'].' ');?>"><i class="fa fa-trash"></i></a>
+<?php 
+      $in = $donation['message'];
+      $out = strlen($in) > 15 ? substr($in,0,15)."..." : $in;
+      echo $out;
+?>
+      </td>
+      <td><?php  
+      $in = $donation['bank_refno'];
+      $out = strlen($in) > 5 ? substr($in,0,5)."..." : $in;
+      echo $out;
+  ?></td>
+      <td>
+          <a href="#" title="Remove" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>&nbsp;
+          <a href="#" title="View" class="btn btn-primary btn-sm" ><i class="fa fa-eye"></i></a>&nbsp;
+          <a href="#" title="Approve" class="btn btn-success btn-sm"><i class="fa fa-check"></i> &nbsp</a>
+
       </td>
     </tr>
 <?php 
 $i++;
-}
+    }
 ?>
-   
   </tbody>
 </table>
-                    </div>
+
+                    <!-- Content Row -->
                     
 
                 </div>
@@ -239,6 +213,28 @@ $i++;
         </div>
     </div>
 
+    <!-- modal -->
+    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- modal end -->
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -256,6 +252,12 @@ $i++;
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
+
+<script type="text/javascript">
+    $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
 </body>
 
 </html>

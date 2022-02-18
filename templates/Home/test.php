@@ -17,157 +17,43 @@
         <!-- Core theme CSS (includes Bootstrap)-->
 
     </head>
-    <body id="page-top">
+    <body >
         <!-- Navigation-->
-         <?= $this->element('header') ?>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Test</button>
+        <div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
         <!-- Mashead header-->
         
         <!-- Quote/testimonial aside-->
         
         <!-- App features section-->
-        <section id="features">
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
-                        <div class="container-fluid px-5">
-                            <!-- Some text and donation button -->
-                        </div>
-                    </div>
-                    <div class="col-lg-4 order-lg-0">
-                        <!-- Features section device mockup-->
-                        <div class="features-device-mockup">
-                            <!-- image related to donation here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- n -->
-                <div class="row">
-                    <div class="col-md-3">
-                        <!-- User sidebar -->
-                        <span>Support us by donation</span>
-                        <img src="<?php echo $this->Url->build('/webroot/img/image_upi.jpg');?>" class="img-fluid" >
-                        <!-- <a href="#">Donate</a>  -->
-                        <br>
-                        <br>
-                        <a class="btn btn-link" href="<?php echo $this->Url->build('/users/donations');?>">My Donations</a>
-
-                    </div>
-                    <div class="col-md-9">
-                        
-                        <div>
-                            <?php echo $this->Flash->render() ?>
-                        </div>
-                        <!-- Donation form start -->
-                        <?php // echo $this->request->getSession()->read('user_id'); ?>
-                        <?= $this->Form->create($donation) ?>
-                            <!-- Name input-->
-                            <legend><?= __('Fill this form to get tokens at binance after successful payment') ?></legend>
-                            <div class="row">
-                                <div class="col-md-6"><div class="form-floating mb-3">
-                                
-                                <?php  echo $this->Form->control('full_name', ['class' => 'form-control', 'required']); ?>
-                                
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                   <div class="form-floating mb-3">
-
-                                <?php  echo $this->Form->control('email', ['class' => 'form-control', 'required']); ?>
-                                <!-- <label for="email">Email address</label> -->
-                               
-                                    </div> 
-                                </div>
-                            </div> <!-- End row -->
-                            
-                            <!-- mobile and bnb address -->
-                            <div class="row">
-                                <div class="col-md-6"><div class="form-floating mb-3">
-                                
-                                <?php  echo $this->Form->control('mobile', ['class' => 'form-control', 'required']); ?>
-                                
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                   <div class="form-floating mb-3">
-
-                                <?php  echo $this->Form->control('binanceaddress', ['class' => 'form-control', 'label' => 'Binance Address']); ?>
-                                <!-- <label for="email">Email address</label> -->
-                               
-                                    </div> 
-                                </div>
-                            </div> <!-- End row -->
-
-
-                            <!-- State and city -->
-                            <div class="row">
-                                <div class="col-md-6"><div class="form-floating mb-3">
-                                
-                                <?php  echo $this->Form->control('state', ['class' => 'form-control', 'required']); ?>
-                                
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                   <div class="form-floating mb-3">
-
-                                <?php  echo $this->Form->control('city', ['class' => 'form-control', 'label' => 'City', 'required']); ?>
-                                <!-- <label for="email">Email address</label> -->
-                               
-                                    </div> 
-                                </div>
-                            </div> <!-- End row -->
-                            <!-- End state and city -->
-
-                            <!-- amount and bank ref no -->
-                            <div class="row">
-                                <div class="col-md-6"><div class="form-floating mb-3">
-                                
-                                <?php  echo $this->Form->control('amt_donated', ['class' => 'form-control', 'label' => 'Amount Donated', 'required']); ?>
-                                
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                   <div class="form-floating mb-3">
-
-                                <?php  echo $this->Form->control('bank_refno', ['class' => 'form-control', 'label' => 'Bank Reference #', 'required']); ?>
-                                <!-- <label for="email">Email address</label> -->
-                               
-                                    </div> 
-                                </div>
-                            </div> <!-- End row -->
-                            <!-- end amount and bank ref no -->
-
-                            <!-- message -->
-                            <div class="row">
-                                <div class="col-md-12"><div class="form-floating mb-3">
-                                
-                                <?php  echo $this->Form->control('message', ['class' => 'form-control', 'label' => 'Message', 'type' => 'textarea']); ?>
-                                
-                                    </div>
-                                </div>
-                                
-                            </div>
-
-                         
-                             
-
-                            <!-- Submit Button-->
-                            <div class="d-grid">
-                                <!-- <button class="btn btn-primary rounded-pill btn-lg disabled" id="submitButton" type="submit">Submit</button> -->
-                                 <?= $this->Form->button(__('Submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
-                            </div>
-                        <!-- </form> -->
-                        <?= $this->Form->end() ?>
-                        <!-- End donation form -->
-                    </div>
-                </div>
-                <!-- en -->
-            </div>
-        </section>
+        
         <!-- Basic features section-->
         
         <!-- Call to action section-->
-        
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <!-- App badge section-->
         <section class="bg-gradient-primary-to-secondary" id="download">
             <div class="container px-5">

@@ -168,6 +168,7 @@ BAAP token is listed on pancake swap, our smart contract address is
                 </div>
             </div>
         </section>
+        
         <!-- App badge section-->
         <section class="bg-gradient-primary-to-secondary" id="download">
             <div class="container px-5">

@@ -45,6 +45,7 @@ $cakeDescription = 'BAAP: Bhartiya Awakend Azad Party';
     <?= $this->Html->css(['manage/sb-admin-2']) ?>
     <?= $this->Html->css(['manage/sb-admin-2.min']) ?>
     <?= $this->Html->css(['manage/all.min']) ?>
+    <?= $this->Html->css(['manage/custom']) ?>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
     
     <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
@@ -81,5 +82,6 @@ $cakeDescription = 'BAAP: Bhartiya Awakend Azad Party';
     <?= $this->Html->script(['manage/jquery.easing.min']) ?>
     <?= $this->Html->script(['manage/sb-admin-2.min']) ?>
     <?= $this->Html->script(['manage/all.min']) ?>
+    
 </body>
 </html>

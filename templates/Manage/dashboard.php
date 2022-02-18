@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>BAAP Admin - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $this->Url->build('/manage/dashboard');?>">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?php echo $this->Url->build('/manage/dashboard');?>">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <span>Dashboard</span></a>
             </li>
@@ -101,7 +101,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Users</div>
+                                                <a style="text-decoration: none" href="<?php echo $this->Url->build('/manage/users');?>">Total Users</a></div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <?= $total_users; ?>
                                             </div>
@@ -168,7 +168,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Group Requests</div>
+                                                <a style="text-decoration: none" href="<?php echo $this->Url->build('/manage/groups');?>">Pending Group Requests</a></div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <?= $total_pending_groups; ?>
                                             </div>
@@ -180,6 +180,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- n -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                <a style="text-decoration: none" href="<?php echo $this->Url->build('/manage/donations_pending');?>">Donations (Verified)</a></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹<?= $total_donation; ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa fa-inr fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- en -->
                     </div>
 
                     <!-- Content Row -->
