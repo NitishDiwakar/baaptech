@@ -189,7 +189,7 @@
       <td><a href="<?php echo $unapproved_group['tel_link']; ?>" target="_blank">Click here</a></td>
       <td><?php echo $unapproved_group['created']; ?></td>
       <td>
-          <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$unapproved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
+          <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$unapproved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
       </td>
     </tr>
 <?php 
