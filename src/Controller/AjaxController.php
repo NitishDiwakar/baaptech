@@ -11,13 +11,19 @@ use Cake\Datasource\ConnectionManager;
  * @property \App\Model\Table\GroupsTable $Groups
  * @method \App\Model\Entity\Group[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class GroupsController extends AppController
+class AjaxController extends AppController
 {
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+    public function test()
+    {
+        echo "hell";
+    }
+
     public function index()
     {
         $groups = $this->paginate($this->Groups);
@@ -26,21 +32,6 @@ class GroupsController extends AppController
         $conn = ConnectionManager::get('default');
 
 
-        /*$stmt = $conn->execute('SELECT * FROM states ');
-        $states1 = $stmt ->fetchAll('assoc');
-        $this->set(compact('states1'));*/
-
-
-        // Whatsapp groups
-        /*$stmt = $conn->execute('SELECT * FROM groups INNER JOIN states ON 
-            groups.state_id = states.s_id
-            WHERE groups.wa_link IS NOT NULL
-            ORDER BY states.name
-         ');
-        $wa_groups = $stmt ->fetchAll('assoc');
-        $this->set(compact('wa_groups'));*/
-
-        // Whatsapp groups
         $stmt = $conn->execute('SELECT * FROM states INNER JOIN groups ON 
             states.s_id = groups.state_id
             WHERE groups.wa_link IS NOT NULL AND groups.is_approved = 1
@@ -61,27 +52,6 @@ class GroupsController extends AppController
 
         //$this->loadModel('States');
         $this->set(compact('groups'));
-
-        //n
-        // Get all states where Whatsapp group is available
-         $stmt = $conn->execute('SELECT * FROM groups INNER JOIN states ON 
-            groups.state_id = states.s_id
-            WHERE groups.wa_link IS NOT NULL AND groups.is_approved = 1
-            ORDER BY states.name 
-         ');
-        $wa_groups_sts = $stmt ->fetchAll('assoc');
-        $this->set(compact('wa_groups_sts'));
-        // print_r($wa_groups_st); exit;
-
-        // Get all states where Telegram group is available
-            $stmt = $conn->execute('SELECT * FROM groups INNER JOIN states ON 
-            groups.state_id = states.s_id
-            WHERE groups.tel_link IS NOT NULL AND groups.is_approved = 1
-            ORDER BY states.name 
-         ');
-        $tel_groups_sts = $stmt ->fetchAll('assoc');
-        $this->set(compact('tel_groups_sts'));
-        //en
 
         $this->viewBuilder()->setLayout('custom');
     }

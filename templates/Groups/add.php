@@ -75,7 +75,7 @@ $conn = ConnectionManager::get('default');
                      echo $this->Form->select(
                         'state_id',
                         ['ANDHRA PRADESH', 'ASSAM', 'ARUNACHAL PRADESH', 'BIHAR', 'GUJRAT', 'HARYANA', 'HIMACHAL PRADESH', 'JAMMU & KASHMIR', 'KARNATAKA', 'KERALA', 'MADHYA PRADESH', 'MAHARASHTRA', 'MANIPUR', 'MEGHALAYA', 'MIZORAM', 'NAGALAND', 'ORISSA', 'PUNJAB', 'RAJASTHAN', 'SIKKIM', 'TAMIL NADU', 'TRIPURA', 'UTTAR PRADESH', 'WEST BENGAL', 'DELHI', 'GOA', 'PONDICHERY', 'LAKSHDWEEP', 'DAMAN & DIU', 'DADRA & NAGAR', 'CHANDIGARH', 'ANDAMAN & NICOBAR', 'UTTARANCHAL', 'JHARKHAND', 'CHATTISGARH'],
-                        ['empty' => '(Select State)', 'class' => 'form-control']
+                        ['empty' => 'Select State', 'class' => 'form-select']
                     ); ?>
 
                     <?php

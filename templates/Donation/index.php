@@ -38,7 +38,7 @@
     <h5>You can support BAAP network
 in some ways</h5>                            
     <p>
-       Buy buying BAAP Tokens from <a href="https://pancakeswap.finance/add/BNB/0x6798cb97ADd4C2dcE309e24A8fecA66D55548aaa" target="_blank" style="text-decoration: none">pancakeswap</a>  
+       By buying BAAP Tokens from <a href="https://pancakeswap.finance/add/BNB/0x6798cb97ADd4C2dcE309e24A8fecA66D55548aaa" target="_blank" style="text-decoration: none">pancakeswap</a>  
     </p>
     <p>We will soon launch NFT'S
 you can buy our NFT.</p>

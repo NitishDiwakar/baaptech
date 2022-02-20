@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Group[]|\Cake\Collection\CollectionInterface $groups
@@ -42,146 +42,52 @@ $conn = ConnectionManager::get('default');
                 echo "</pre>";
                 echo "states: <br/>";*/
 
+/*$s_names = array();
+                foreach ($wa_groups as $wa_group)
+                {
+                    // echo $wa_group['name'] . "<br>";
+                    // echo $wa_group['wa_name'] . "<br>";
+                    $state_name = $wa_group['name'];
+                    $s_id = $wa_group['s_id'];
 
+                    if( in_array($state_name, $s_names) ) { //If in array, skip iteration
+                       continue;
+                    }
+                    echo $state_name . "<br>";
+                    // echo $s_id . "<br>";
+                    //n
+                 $stmt = $conn->execute('SELECT * FROM groups
+                    WHERE state_id = "'.$s_id.'" AND is_approved = 1
+                    ');
+                 // whatsapp groups
+                 $wgs = $stmt ->fetchAll('assoc');
+                    // echo $state_name . "<br/";
+                 foreach ($wgs as $wg)
+                 {
+                    echo $wg['wa_name'];
+                 }
+                 // print_r($wgs);
+                    
+                    //en
+                    $s_names[] = $state_name;
+                }
+*/
+                /*foreach ($tel_groups as $tel_group)
+                {
+                    echo $tel_group['name'] . "<br>";
+                    echo $tel_group['tel_name'] . "<br>";
+                }*/
+
+                // n
+               /* $stmt1 = $conn->execute('SELECT * from groups');
+                $asdf = $stmt1 ->fetchAll('assoc');
+                // en*/
             ?>
             <div class="container px-5">
                 <?php echo $this->Flash->render() ?>
-                <!-- n -->
-               <div class="row">
-                   <div class="col-md-3">
-                        <select class="form-select" id="state_selecter">
-                    <option value="">Select State</option>
-                     <?php 
-                     $st_names = array();
-                    foreach ($wa_groups_sts as $wa_groups_st)
-                    {
-                        $st_name = $wa_groups_st['name'];
-                        // echo $wa_groups_st['name'] . "<br>";
-                        if( in_array($st_name, $st_names) ) { //If in array, skip iteration
-                       continue;
-                    }
-                    ?>
-                    <option value="<?php echo $wa_groups_st['s_id']; ?>"><?php echo $wa_groups_st['name']; ?></option>
-                    <?php  
-                    $st_names[] = $st_name;
-                        } // end state name select option
-                    ?>
-                    <!-- <option value="1">A</option>
-                    <option value="2">B</option> -->
-                </select>
-                   </div>
-                   <div class="col-md-3">
-                   </div>
-                   <div class="col-md-6">
-                         <div class="float-end">
-                           <a href="<?php echo $this->Url->build('/groups/add');?>" class="btn btn-primary btn-sm rounded-pill">Submit your group</a>
-                       </div>
-                   </div>
-               </div>
-                    <div id="1" class="colors" style="display:none">State 1</div>
-                    <div id="2" class="colors" style="display:none">State 2</div>
-                <!-- n -->
-                <?php 
-                    foreach ($wa_groups_sts as $wa_groups_st)
-                    {
-                        // echo $wa_groups_st['name'] . "<br>";
-                ?>
-                <div id="<?php echo $wa_groups_st['s_id']; ?>" class="colors" style="display:none">
-                    <?php // echo $wa_groups_st['name']; ?>
-                        <div class="row">
-                            <div class="col-md-6">
-                        <?php // Show whatsapp groups according to state selected ?>
-                       <?php $state_id = $wa_groups_st['s_id']; ?>
-<p></p>
-<h6>Whatsapp Groups of <?php echo $wa_groups_st['name']; ?></h6>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">City</th>
-      <th scope="col">Group Name</th>
-      <th scope="col">Join Link</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php 
-     $stmt = $conn->execute('SELECT * FROM groups
-                    WHERE state_id = "'.$state_id.'" AND is_approved = 1
-                    ');
-                 // whatsapp groups
-                 $wgs = $stmt ->fetchAll('assoc');
-                    // echo $state_name . "<br/";
-                 $i = 1;
-                 foreach ($wgs as $wg)
-                 {
-                    
-                 
-    ?>
-    <tr>
-      <th scope="row"><?php echo $i; ?></th>
-      <td><?php echo $wg['city']; ?></td>
-      <td><?php echo $wg['wa_name']; ?></td>
-      <td><a href="<?php echo $wg['wa_link']; ?>" target="_blank">Click here</a></td>
-    </tr>
-<?php 
-$i++;
-} ?>
-  </tbody>
-</table>
-       </div> <!-- End col-md-6 -->
- 
- <div class="col-md-6">
-     <!-- Telegram groups of selected states -->
-     <p></p>
-<h6>Telegram Groups of <?php echo $wa_groups_st['name']; ?></h6>
-     <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">City</th>
-      <th scope="col">Group Name</th>
-      <th scope="col">Join Link</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php 
-     $stmt = $conn->execute('SELECT * FROM groups
-                    WHERE state_id = "'.$state_id.'" AND is_approved = 1
-                    ');
-                 // whatsapp groups
-                 $wgs = $stmt ->fetchAll('assoc');
-                    // echo $state_name . "<br/";
-                 $i = 1;
-                 foreach ($wgs as $wg)
-                 {
-                    
-                 
-    ?>
-    <tr>
-      <th scope="row"><?php echo $i; ?></th>
-      <td><?php echo $wg['city']; ?></td>
-      <td><?php echo $wg['tel_name']; ?></td>
-      <td><a href="<?php echo $wg['tel_link']; ?>" target="_blank">Click here</a></td>
-    </tr>
-<?php 
-$i++;
-} ?>
-  </tbody>
-</table>
- </div> <!-- End col-md-6 -->
-                        </div>
-                    </div>  
-                <?php
-                    }
-                ?>
-                <!-- en -->
-
-                <div id="state_selecter"></div>
-                <!-- en -->
-                <div class="row gx-5 align-items-center all_states">
+                <div class="row gx-5 align-items-center">
                     <div class="col-md-6">
-                        <p></p>
-                        <h6><span>Join your local Whatsapp group of your area</span></h6>
+                        <p><span>Join your local Whatsapp group of your area</span></p>
                         <!-- table start -->
 <?php 
 $s_names = array();
@@ -204,9 +110,6 @@ $s_names = array();
                     //en
                     
 ?>
-
-
-<!-- All whatsapp groups before state selected -->
  <table class="table table-bordered">
   <thead>
     <tr>
@@ -249,8 +152,7 @@ $s_names[] = $state_name;
                     </div>
 
                     <div class="col-md-6">
-                        <p></p>
-                        <h6><span>Join your local Telegram group of your area</span></h6>
+                        <p><span>Join your local Telegram group of your area</span></p>
 <!-- Telegram Links -->
 <!-- table start -->
 <?php 
@@ -399,7 +301,6 @@ $s_names[] = $state_name;
                 </div>
             </div>
         </div>
-
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -409,23 +310,6 @@ $s_names[] = $state_name;
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
-        <script type="text/javascript">
-        $(function() {
-        $('#1').hide();
-        $('#2').hide();
-        $('#state_selecter').change(function(){
-            $('.all_states').hide();
-            // $('.state_data').show();
-            // $('#' + $(this).val()).show();
-            $('.colors').hide();
-            $('#' + $(this).val()).show();
-        });
-        // n
-  
-        // en
-    }); 
-
-        </script>
     </body>
 </html>
 
