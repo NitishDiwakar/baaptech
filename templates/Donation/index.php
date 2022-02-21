@@ -27,7 +27,16 @@
         <!-- App features section-->
         <section id="features">
             <?php 
-
+            // writeMessage();
+            /*if($this->request->getSession()->read('admin_id') !== NULL)
+            {
+                echo "admin is set";
+            }*/
+            /*if($this->request->getSession()->read('admin_id') === NULL)
+            {
+                // echo "admin id is not set";
+               return $this->redirect(['action' => 'login']);
+            }*/
             ?>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center" style="margin-top: 2%">

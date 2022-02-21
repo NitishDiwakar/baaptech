@@ -262,6 +262,13 @@ public function groups()
 
     public function donationsPending()
     {
+        // Verify admin
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+        // en
 
             $conn = ConnectionManager::get('default');
             $stmt = $conn->execute('SELECT * FROM `donation` WHERE is_approved = 0 AND is_deleted = 0
@@ -312,6 +319,13 @@ public function groups()
     // Verify donation
     public function donationsVerify()
     {
+
+        // admin verify
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
         // echo "string";
 
 

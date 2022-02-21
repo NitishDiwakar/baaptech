@@ -19,6 +19,7 @@ class DonationController extends AppController
      */
     public function index()
     {
+
         $this->viewBuilder()->setLayout('custom_home');
        
     }

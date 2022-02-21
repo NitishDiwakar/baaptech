@@ -195,7 +195,7 @@ $s_names = array();
                     if( in_array($state_name, $s_names) ) { //If in array, skip iteration
                        continue;
                     }
- echo "<h6 class='text-white bg-secondary'>" . $state_name . "</h6>" ;
+ echo "<h6 class='text-white bg-secondary p-1'>" . $state_name . "</h6>" ;
                     // echo $s_id . "<br>";
                     //n
                 
@@ -265,7 +265,7 @@ $s_names = array();
                     if( in_array($state_name, $s_names) ) { //If in array, skip iteration
                        continue;
                     }
-    echo "<h6 class='text-white bg-secondary'>" . $state_name . "</h6>";
+    echo "<h6 class='text-white bg-secondary p-1'>" . $state_name . "</h6>";
                     // echo $s_id . "<br>";
                     //n
                 
