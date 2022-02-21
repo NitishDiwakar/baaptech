@@ -156,7 +156,7 @@
                     <!-- Content Row -->
 
 <?php echo $this->Flash->render() ?>
-<h4 class="text-white bg-primary">Unapproved Groups</h4>
+<h4 class="text-white bg-primary p-1">Unapproved Groups</h4>
                     <div class="row">
 <table class="table">
   <thead>
@@ -213,7 +213,7 @@ $i++;
 <!-- Approved groups -->
 
                     </div>
-<h4 class="text-white bg-primary">Approved Groups</h4>
+<h4 class="text-white bg-primary p-1">Approved Groups</h4>
 <div class="row">
 <table class="table">
   <thead>
