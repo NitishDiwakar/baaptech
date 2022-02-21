@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>BAAP Admin - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -156,7 +156,7 @@
                     <!-- Content Row -->
 
 <?php echo $this->Flash->render() ?>
-<h4>Unapproved Groups</h4>
+<h4 class="text-white bg-primary">Unapproved Groups</h4>
                     <div class="row">
 <table class="table">
   <thead>
@@ -189,13 +189,22 @@
       <td><a href="<?php echo $unapproved_group['tel_link']; ?>" target="_blank">Click here</a></td>
       <td><?php echo $unapproved_group['created']; ?></td>
       <td>
-          <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$unapproved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
+        <a title="Remove" class="btn btn-danger btn-sm " onclick="return confirm('Are you sure, you want to delete this group?')" href="<?php echo $this->Url->build('/manage/groups_delete/?id='.$unapproved_group['id'].' ');?>"><i class="fa fa-trash"></i></a>
+          <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure, You want to approve this group?')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$unapproved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
       </td>
     </tr>
 <?php 
 $i++;
 }
 ?>
+    <td colspan="6">
+<?php 
+    if(empty($unapproved_groups))
+    {
+        echo "There is no unapproved groups.";
+    }
+?>
+    </td>
    
   </tbody>
 </table>
@@ -204,7 +213,7 @@ $i++;
 <!-- Approved groups -->
 
                     </div>
-<h4>Approved Groups</h4>
+<h4 class="text-white bg-primary">Approved Groups</h4>
 <div class="row">
 <table class="table">
   <thead>
@@ -241,7 +250,8 @@ $i++;
           <a title="Approve" class="btn btn-success btn-sm" onclick="return confirm('Are you sure, you want to delete this user?')" href="<?php echo $this->Url->build('/manage/groups_verify?id='.$approved_group['id'].' ');?>"><i class="fa fa-check"></i></a>
       </td> -->
       <td>
-          <a title="Remove" class="btn btn-danger btn-sm disabled" onclick="return confirm('Are you sure, you want to delete this user?')" href="#"><i class="fa fa-trash"></i></a>
+          <a title="Remove" class="btn btn-danger btn-sm " onclick="return confirm('Are you sure, you want to delete this group?')" href="<?php echo $this->Url->build('/manage/groups_delete/?id='.$approved_group['id'].' ');?>"><i class="fa fa-trash"></i></a>
+          <a title="Undo approve" class="btn btn-primary btn-sm " onclick="return confirm('Are you sure, you want to unapprove this group?')" href="<?php echo $this->Url->build('/manage/groups_unapprove/?id='.$approved_group['id'].' ');?>"><i class="fa fa-undo"></i></a>
       </td>
     </tr>
 

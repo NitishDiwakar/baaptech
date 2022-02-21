@@ -234,6 +234,7 @@ public function groups()
                 groups.state_id = states.s_id
              WHERE 
                 groups.is_approved = 0
+                AND groups.is_deleted = 0
                 ORDER BY groups.id ASC
              ');
             $unapproved_groups = $stmt ->fetchAll('assoc');
@@ -245,6 +246,7 @@ public function groups()
                 groups.state_id = states.s_id
              WHERE 
                 groups.is_approved = 1
+                AND groups.is_deleted = 0
                 ORDER BY groups.id ASC
              ');
             $approved_groups = $stmt ->fetchAll('assoc');
@@ -352,6 +354,87 @@ public function groups()
 
         $this->viewBuilder()->setLayout('custom_manage');
     } // end verify donation
+
+    // Remove Group
+    public function groupsDelete()
+    {
+        // echo "string";
+
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        // echo $admin_id; exit;
+       if(isset($_GET['id']))
+       {
+        $group_id = $_GET['id'];
+        // echo $group_id; exit;
+         if(isset($admin_id))
+        {
+            $donation_id = $_GET['id'];
+            // echo $donation_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE groups 
+                    SET is_deleted = 1
+                    WHERE 
+                    id = "'.$group_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Group deleted successfully. '));
+                 return $this->redirect(['action' => 'groups']);
+
+
+        }
+
+        if(!isset($admin_id))
+        {
+            echo "Something went wrong";
+            exit;
+        }
+       }
+
+        $this->viewBuilder()->setLayout('custom_manage');
+    } // end remove group
+
+
+    // Undo approve
+    public function groupsUnapprove()
+    {
+        // echo "string";
+
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        // echo $admin_id; exit;
+       if(isset($_GET['id']))
+       {
+        $group_id = $_GET['id'];
+        // echo $group_id; exit;
+         if(isset($admin_id))
+        {
+            $donation_id = $_GET['id'];
+            // echo $donation_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE groups 
+                    SET is_approved = 0
+                    WHERE 
+                    id = "'.$group_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Group is not verified anymore. '));
+                 return $this->redirect(['action' => 'groups']);
+
+
+        }
+
+        if(!isset($admin_id))
+        {
+            echo "Something went wrong";
+            exit;
+        }
+       }
+
+        $this->viewBuilder()->setLayout('custom_manage');
+    } // end undo approve group
     
 
 }

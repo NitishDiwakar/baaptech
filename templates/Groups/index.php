@@ -93,7 +93,7 @@ $conn = ConnectionManager::get('default');
                         <?php // Show whatsapp groups according to state selected ?>
                        <?php $state_id = $wa_groups_st['s_id']; ?>
 <p></p>
-<h6>Whatsapp Groups of <?php echo $wa_groups_st['name']; ?></h6>
+<h6>Whatsapp Groups of <?php echo $wa_groups_st['name']; ?> <i class="bi bi-whatsapp"></i></h6>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -133,7 +133,7 @@ $i++;
  <div class="col-md-6">
      <!-- Telegram groups of selected states -->
      <p></p>
-<h6>Telegram Groups of <?php echo $wa_groups_st['name']; ?></h6>
+<h6>Telegram Groups of <?php echo $wa_groups_st['name']; ?> <i class="bi bi-telegram"></i></h6>
      <table class="table table-bordered">
   <thead>
     <tr>
@@ -181,7 +181,7 @@ $i++;
                 <div class="row gx-5 align-items-center all_states">
                     <div class="col-md-6">
                         <p></p>
-                        <h6><span>Join your local Whatsapp group of your area</span></h6>
+                        <h6><span>Join your local Whatsapp group of your area <i class="bi bi-whatsapp"></i></span></h6>
                         <!-- table start -->
 <?php 
 $s_names = array();
@@ -195,7 +195,7 @@ $s_names = array();
                     if( in_array($state_name, $s_names) ) { //If in array, skip iteration
                        continue;
                     }
- echo "<h6>" . $state_name . "</h6>" ;
+ echo "<h6 class='text-white bg-secondary'>" . $state_name . "</h6>" ;
                     // echo $s_id . "<br>";
                     //n
                 
@@ -250,7 +250,7 @@ $s_names[] = $state_name;
 
                     <div class="col-md-6">
                         <p></p>
-                        <h6><span>Join your local Telegram group of your area</span></h6>
+                        <h6><span>Join your local Telegram group of your area <i class="bi bi-telegram"></i></span></h6>
 <!-- Telegram Links -->
 <!-- table start -->
 <?php 
@@ -265,7 +265,7 @@ $s_names = array();
                     if( in_array($state_name, $s_names) ) { //If in array, skip iteration
                        continue;
                     }
-    echo "<h6 class='state_name'>" . $state_name . "</h6>";
+    echo "<h6 class='text-white bg-secondary'>" . $state_name . "</h6>";
                     // echo $s_id . "<br>";
                     //n
                 
