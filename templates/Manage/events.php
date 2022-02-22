@@ -109,6 +109,7 @@
       <th scope="col">Title</th>
       <th scope="col">Start Date</th>
       <th scope="col">End Date</th>
+      <th scope="col">Description</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -124,6 +125,7 @@
       <td><?php echo $result['title']; ?></td>
       <td><?php echo $result['start_date']; ?></td>
       <td><?php echo $result['end_date']; ?></td>
+      <td><?php echo $result['message']; ?></td>
       <td>
           <a title="Delete Event" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure, you want to delete this event?')" href="<?php echo $this->Url->build('/manage/events_delete?id='.$result['id'].' ');?>"><i class="fa fa-trash"></i></a>
       </td>
