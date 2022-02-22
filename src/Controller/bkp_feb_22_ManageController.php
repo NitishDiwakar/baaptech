@@ -455,13 +455,6 @@ public function groups()
     public function eventAdd()
     {
 
-        // admin verify
-        if($this->request->getSession()->read('admin_id') === NULL)
-        {
-            // echo "admin id is not set";
-           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
-        }
-
         if ($this->request->is('post')) 
         {
             // echo "form submitted"; exit;
@@ -473,39 +466,34 @@ public function groups()
             // echo $start_date; exit;
 
             // image processing
-            $pic= ($_FILES['image']['name']);
-            // echo $pic; exit;
+            // $pic= ($_FILES['image']['name']);
             // Check if if file type is valid image
-            $allowed =  array('png' ,'jpg');
-            $ext     = pathinfo($pic, PATHINFO_EXTENSION);
+            // $allowed =  array('png' ,'jpg');
+          /*  $ext     = pathinfo($pic, PATHINFO_EXTENSION);
             if(!in_array($ext,$allowed) ) 
             {
                 // $_SESSION['msg'] = '<div class="alert alert-danger"><i class="fa fa-times"></i> Only .jpg and .png extenstions are allowed.</div>';
                 // echo "<script>window.location = '../blog-add.php'</script>";
-                echo "Invalid image type";
+
                 // Redirect with invalid image message
                 exit();
-            }
-            // echo "valid image"; exit;s 
-            $date = date('Y-m-d h:i:s');
+            }*/
+            /*$date = date('Y-m-d h:i:s');
             $date = strtotime($date);
 
             $pic =  $date . '_' . $pic;
-            // $target_dir = "/img/uploads/events";
-            $target_dir = "img/uploads/events/";
-            // echo $target_dir; exit;
+            $target_dir = "/img/uploads/events";
+            echo $target_dir;
 
-            // $target_dir = "../uploads/blogs/";
+            $target_dir = "../uploads/blogs/";
             $target_file = $target_dir . $pic;
-            // echo $target_file; exit;
-            // mkdir("halla"); exit;
           move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-          // exit;
+          exit;*/
             // end image processing
 
             $conn = ConnectionManager::get('default');
-            $stmt = $conn->execute('INSERT INTO events (title, slug, image, start_date, end_date, message, created) VALUES  
-                ("'.$title.'", "'.$slug.'", "'.$pic.'", "'.$start_date.'", "'.$end_date.'", "'.$message.'", NOW())
+            $stmt = $conn->execute('INSERT INTO events (title, slug, start_date, end_date, message, created) VALUES  
+                ("'.$title.'", "'.$slug.'", "'.$start_date.'", "'.$end_date.'", "'.$message.'", NOW())
              ');
 
             $this->Flash->custom_success(__('Event added.'));
@@ -521,61 +509,6 @@ public function groups()
         $this->viewBuilder()->setLayout('custom_manage');
 
     } // end event add
-
-    // Events
-    public function events()
-    {
-
-        // admin verify
-        if($this->request->getSession()->read('admin_id') === NULL)
-        {
-            // echo "admin id is not set";
-           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
-        }
-
-        $conn = ConnectionManager::get('default');
-        $stmt = $conn->execute('SELECT * FROM events WHERE 
-            is_deleted = 0
-            ORDER BY id DESC
-         ');
-        $results = $stmt ->fetchAll('assoc');
-        $this->set(compact('results'));
-        $this->viewBuilder()->setLayout('custom_manage');
-       
-    } // end events
-
-    // Delete events
-    public function eventsDelete()
-    {
-        // echo "string";
-
-        // echo $id;
-        $admin_id = $this->request->getSession()->read('admin_id');
-        if(isset($admin_id))
-        {
-            $event_id = $_GET['id'];
-            // echo $user_id; exit;
-            $conn = ConnectionManager::get('default');
-            $stmt = $conn->execute('UPDATE events 
-                    SET is_deleted = 1
-                    WHERE 
-                    id = "'.$event_id.'" 
-                    ');
-
-                 $this->Flash->custom_success(__('Event Deleted. '));
-                 return $this->redirect(['action' => 'events']);
-
-
-        }
-
-        if(!isset($admin_id))
-        {
-            echo "You are not allowed for this action";
-            exit;
-        }
-
-        
-    }
     
 
 }

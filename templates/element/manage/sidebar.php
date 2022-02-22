@@ -3,6 +3,25 @@
                 Interface
             </div>
 
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities_events"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <!-- <i class="fas fa-fw fa-wrench"></i> -->
+                    <i class="fa fa-calendar"></i>
+                    <span>Events</span>
+                </a>
+                <div id="collapseUtilities_events" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Events</h6>
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/event_add');?>">Add Event </a> 
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/events');?>">List Events </a> 
+                        <!-- <a class="collapse-item" href="#">Telegram Groups <i class="fa fa-telegram"></i></a> -->
+                    </div>
+                </div>
+            </li> <!-- End events -->
+
             <!-- Nav Item - Groups -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
