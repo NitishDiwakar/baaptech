@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -103,7 +104,7 @@
 
 <?php echo $this->Flash->render() ?>
                     <div class="row">
-<table class="table">
+<table class="table" id="myTable">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -147,6 +148,26 @@ $i++;
   </tbody>
 </table>
                     </div>
+                    <!-- n -->
+<!-- <table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>
+</table> -->
+                    <!-- en -->
                     
 
                 </div>
@@ -212,6 +233,11 @@ $i++;
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+    </script>
 
 </body>
 

@@ -81,15 +81,18 @@ class ManageController extends AppController
 
         $admin_id = $this->request->getSession()->read('admin_id');
 
-        /*if(isset($admin_id))
-        {
 
-        }*/
-
-        if(!isset($admin_id))
+        /*if(!isset($admin_id))
         {
             echo "access denied!";
             exit;
+        }*/
+
+        // Verify admin
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
         }
 
         // Count total users
