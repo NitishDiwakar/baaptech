@@ -576,6 +576,98 @@ public function groups()
 
         
     }
+
+    // Edit events
+     public function eventEdit()
+    {
+
+        // admin verify
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        // Fill text with event details
+        $event_id = $_GET['id'];
+        // echo $event_id;
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM events WHERE 
+            id = "'.$event_id.'"
+         ');
+        $results = $stmt ->fetchAll('assoc');
+        $this->set(compact('results'));
+        // en
+
+        if ($this->request->is('post')) 
+        {
+            // echo "form submitted"; exit;
+            $title = $this->request->getData('title'); 
+            $slug  = $this->request->getData('slug'); 
+            $start_date  = $this->request->getData('start_date'); 
+            $end_date  = $this->request->getData('end_date'); 
+            $message  = $this->request->getData('message'); 
+            // echo $start_date; exit;
+
+            // image processing
+            /*$pic= ($_FILES['image']['name']);
+            // echo $pic; exit;
+            // Check if if file type is valid image
+            $allowed =  array('png' ,'jpg');
+            $ext     = pathinfo($pic, PATHINFO_EXTENSION);
+            if(!in_array($ext,$allowed) ) 
+            {
+                // $_SESSION['msg'] = '<div class="alert alert-danger"><i class="fa fa-times"></i> Only .jpg and .png extenstions are allowed.</div>';
+                // echo "<script>window.location = '../blog-add.php'</script>";
+                echo "Invalid image type";
+                // Redirect with invalid image message
+                exit();
+            }
+            // echo "valid image"; exit;s 
+            $date = date('Y-m-d h:i:s');
+            $date = strtotime($date);
+
+            $pic =  $date . '_' . $pic;
+            // $target_dir = "/img/uploads/events";
+            $target_dir = "img/uploads/events/";
+            // echo $target_dir; exit;
+
+            // $target_dir = "../uploads/blogs/";
+            $target_file = $target_dir . $pic;
+            // echo $target_file; exit;
+            // mkdir("halla"); exit;
+          move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+          // exit;*/
+            // end image processing
+
+            $conn = ConnectionManager::get('default');
+            /*$stmt = $conn->execute('INSERT INTO events (title, slug, image, start_date, end_date, message, created) VALUES  
+                ("'.$title.'", "'.$slug.'", "'.$pic.'", "'.$start_date.'", "'.$end_date.'", "'.$message.'", NOW())
+             ');*/
+            $stmt = $conn->execute('UPDATE events 
+                SET 
+                title = "'.$title.'",
+                slug = "'.$slug.'",
+                start_date = "'.$start_date.'",
+                end_date = "'.$end_date.'",
+                message = "'.$message.'"
+                WHERE 
+                id = "'.$event_id.'"
+             ');
+
+            $this->Flash->custom_success(__('Event Updated.'));
+            $this->redirect(['action' => 'events']);
+
+        }
+
+            
+            // $results = $stmt ->fetchAll('assoc');
+            // $this->set(compact('results'));
+
+
+        $this->viewBuilder()->setLayout('custom_manage');
+
+    } // end event edit
     
 
 }

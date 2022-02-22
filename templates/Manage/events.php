@@ -87,8 +87,9 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Events</h1>
-                        <a href="<?php echo $this->Url->build('/manage/groups');?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="<?php echo $this->Url->build('/manage/event_add');?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fa fa-add fa-sm text-white-50"></i> Add Event</a>
+                        
                     </div>
 
                     <!-- Content Row -->
@@ -125,9 +126,17 @@
       <td><?php echo $result['title']; ?></td>
       <td><?php echo $result['start_date']; ?></td>
       <td><?php echo $result['end_date']; ?></td>
-      <td><?php echo $result['message']; ?></td>
+      <td>
+        <?php 
+            $in = $result['message'];
+            $out = strlen($in) > 115 ? substr($in,0,115)."..." : $in;
+            echo $out;
+        ?>
+      </td>
       <td>
           <a title="Delete Event" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure, you want to delete this event?')" href="<?php echo $this->Url->build('/manage/events_delete?id='.$result['id'].' ');?>"><i class="fa fa-trash"></i></a>
+
+          <a title="Edit Event" class="btn btn-primary btn-sm"  href="<?php echo $this->Url->build('/manage/event_edit?id='.$result['id'].' ');?>"><i class="fa fa-pencil"></i></a>
       </td>
     </tr>
 <?php 

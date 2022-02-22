@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BAAP Admin - Event Add</title>
+    <title>BAAP Admin - Event Edit</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -87,7 +87,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h4 mb-0 text-gray-800">Event Add</h1>
+                        <h1 class="h4 mb-0 text-gray-800">Event Edit</h1>
                         <a href="<?php echo $this->Url->build('/manage/events');?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fa fa-comments fa-sm text-white-50"></i> List Events</a>
                     </div>
@@ -110,44 +110,48 @@
     <div class="form-floating mb-3">
         <!-- <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" /> -->
         <!-- <legend><?= __('Event Add') ?></legend> -->
-         
-        <?php  echo $this->Form->control('title', ['class' => 'form-control', 'label' => 'Event Title', 'id' => 'event_title', 'required']); ?>
+        <?php $event_title = $results[0]['title']; ?>
+        <?php  echo $this->Form->control('title', ['class' => 'form-control', 'label' => 'Event Title', 'id' => 'event_title', 'required', 'value' => $event_title]); ?>
         <!-- <label for="email">Email address</label> -->
     </div>
 
     <div class="form-floating mb-3">
-        <?php  echo $this->Form->control('slug', ['class' => 'form-control', 'label' => 'Slug', 'id' => 'slug']); ?>
+        <?php $event_slug = $results[0]['slug']; ?>
+        <?php  echo $this->Form->control('slug', ['class' => 'form-control', 'label' => 'Slug', 'id' => 'slug', 'value' => $event_slug]); ?>
     </div>
 
 <div class="row">
     <div class="col-6">
         <div class="form-floating mb-3">
-        <?php  echo $this->Form->control('start_date', ['class' => 'form-control', 'label' => 'Start Date', 'type' => 'date']); ?>
+        <?php $start_date = $results[0]['start_date']; ?>
+        <?php  echo $this->Form->control('start_date', ['class' => 'form-control', 'label' => 'Start Date', 'type' => 'date', 'value' => $start_date]); ?>
 </div>
     </div>
     <div class="col-6">
         <div class="form-floating mb-3">
-        <?php  echo $this->Form->control('end_date', ['class' => 'form-control', 'label' => 'End Date', 'type' => 'date']); ?>
+        <?php $end_date = $results[0]['end_date']; ?>
+        <?php  echo $this->Form->control('end_date', ['class' => 'form-control', 'label' => 'End Date', 'type' => 'date', 'value' => $end_date]); ?>
 </div>
     </div>
 </div>
 
  <!-- Banner -->
 <div class="row">
-    <div class="col-6">
+    <!-- <div class="col-6">
          <?php  echo $this->Form->control('image', ['class' => 'form-control', 'label' => 'Banner', 'type' => 'file', 'onchange' => 'readURL(this);', 'accept' => 'image/jpeg, image/png', 'required']); ?>
         <img id="blah" class="img img-fluid" src="#" alt="" />
-    </div>
+    </div> -->
     <div class="col-6"></div>
 </div> 
  <!-- end Banner -->
 
  <!-- ck editor -->
- <?php  echo $this->Form->control('message', ['class' => 'form-control', 'label' => 'Event Description', 'id' => 'editor1', 'required', 'type' => 'textarea']); ?>
+ <?php $message = $results[0]['message']; ?>
+ <?php  echo $this->Form->control('message', ['class' => 'form-control', 'label' => 'Event Description', 'id' => 'editor1', 'required', 'type' => 'textarea', 'value' => $message]); ?>
 
                             <!-- Submit Button-->
     <div class="d-grid">
-         <?= $this->Form->button(__('Add Event'),['class'=>'btn btn-sm btn-primary shadow-sm']) ?>
+         <?= $this->Form->button(__('Update Event'),['class'=>'btn btn-sm btn-primary shadow-sm']) ?>
     </div>
                         <!-- </form> -->
                         <?= $this->Form->end() ?>
