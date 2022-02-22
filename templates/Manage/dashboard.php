@@ -189,7 +189,17 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 <a style="text-decoration: none" href="<?php echo $this->Url->build('/manage/donations_pending');?>">Donations (Verified)</a></div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹<?= $total_donation; ?></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹ <?php 
+                                            if($total_donation !== NULL)
+                                            {
+                                                echo $total_donation;
+                                            }
+                                            else 
+                                            {
+                                                echo '0';
+                                            }
+                                            // echo $total_donation; 
+                                            ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa fa-inr fa-2x text-gray-300"></i>
