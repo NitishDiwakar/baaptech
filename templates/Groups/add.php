@@ -50,6 +50,11 @@ $conn = ConnectionManager::get('default');
         <!-- App features section-->
         <section id="features">
             <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        
+                    </div>
+                </div>
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-1 mb-5 mb-lg-0">
                         <div class="container-fluid ">
@@ -58,7 +63,7 @@ $conn = ConnectionManager::get('default');
             <?= $this->Form->create($group) ?>
             <div class="form-floating mb-3">              
             <fieldset>
-                <legend><?= __('Submit your Whatsapp/Telegram group links') ?></legend>
+                <legend class="text-white bg-secondary p-2"><?= __('Submit your Whatsapp/Telegram group links') ?></legend>
                 <?php
                 // n
                     /*echo $this->Form->select(
@@ -75,14 +80,14 @@ $conn = ConnectionManager::get('default');
                      echo $this->Form->select(
                         'state_id',
                         ['ANDHRA PRADESH', 'ASSAM', 'ARUNACHAL PRADESH', 'BIHAR', 'GUJRAT', 'HARYANA', 'HIMACHAL PRADESH', 'JAMMU & KASHMIR', 'KARNATAKA', 'KERALA', 'MADHYA PRADESH', 'MAHARASHTRA', 'MANIPUR', 'MEGHALAYA', 'MIZORAM', 'NAGALAND', 'ORISSA', 'PUNJAB', 'RAJASTHAN', 'SIKKIM', 'TAMIL NADU', 'TRIPURA', 'UTTAR PRADESH', 'WEST BENGAL', 'DELHI', 'GOA', 'PONDICHERY', 'LAKSHDWEEP', 'DAMAN & DIU', 'DADRA & NAGAR', 'CHANDIGARH', 'ANDAMAN & NICOBAR', 'UTTARANCHAL', 'JHARKHAND', 'CHATTISGARH'],
-                        ['empty' => 'Select State', 'class' => 'form-select']
+                        ['empty' => 'Select State', 'class' => 'form-select mb-1']
                     ); ?>
 
                     <?php
-                    echo $this->Form->control('city',['class' => 'form-control']);
-                    echo $this->Form->control('wa_name', ['label' => 'Whatsapp Group name', 'class' => 'form-control']);
-                    echo $this->Form->control('wa_link', ['label' => 'Whatsapp Group link', 'class' => 'form-control']);
-                    echo $this->Form->control('tel_name', ['label' => 'Telegram Group name', 'class' => 'form-control']);
+                    echo $this->Form->control('city',['class' => 'form-control mb-1']);
+                    echo $this->Form->control('wa_name', ['label' => 'Whatsapp Group name', 'class' => 'form-control mb-1']);
+                    echo $this->Form->control('wa_link', ['label' => 'Whatsapp Group link', 'class' => 'form-control mb-1']);
+                    echo $this->Form->control('tel_name', ['label' => 'Telegram Group name', 'class' => 'form-control mb-1']);
                     echo $this->Form->control('tel_link', ['label' => 'Telegram Group link', 'class' => 'form-control']);
                     // echo $this->Form->control('is_approved');
                 ?>
@@ -98,7 +103,7 @@ $conn = ConnectionManager::get('default');
                     </div>
                     <div class="col-lg-6 order-lg-0">
                         <!-- Features section device mockup-->
-                        <p>Submit your whatsapp/telegram group links to stay together and fight against tranny.</p>
+                        <p class="h5 my-1">Submit your whatsapp/telegram group links to stay together and fight against tranny.</p>
                         <div class="features-device-mockup">
                             <!-- image related to donation here -->
                             <img src="<?php echo $this->Url->build('/img/whatsapp_and_telegram.jpg');?>" class="img-fluid"> 
