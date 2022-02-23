@@ -68,6 +68,9 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <div class="sidebar-heading">
+                Other
+            </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -77,7 +80,7 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Registered users</h6>
+                        <h6 class="collapse-header">Donations</h6>
                        
                         <a class="collapse-item" href="<?php echo $this->Url->build('/manage/donations_pending');?>">Pending Donations</a>
                         <a class="collapse-item" href="<?php echo $this->Url->build('/manage/donations_verify');?>">Verified Donations</a>
@@ -85,6 +88,29 @@
                     </div>
                 </div>
             </li>
+
+            <!-- n -->
+            <div class="sidebar-heading">
+                Forum
+            </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages_cat"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <!-- <i class="fas fa-fw fa-folder"></i> -->
+                    <i class="fa fa-list-alt"></i>
+                    <span>Categories</span>
+                </a>
+                <div id="collapsePages_cat" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Forum Categories</h6>
+                       
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/category_add');?>">Add Category</a>
+                        <a class="collapse-item" href="<?php echo $this->Url->build('/manage/categories');?>">List Category</a>
+                      
+                    </div>
+                </div>
+            </li>
+            <!-- en -->
 
             <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"

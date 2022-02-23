@@ -671,6 +671,151 @@ public function groups()
         $this->viewBuilder()->setLayout('custom_manage');
 
     } // end event edit
+
+    // Category add
+    public function categoryAdd()
+    {
+
+        // admin verify
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        if ($this->request->is('post')) 
+        {
+            // echo "form submitted"; exit;
+            $title = $this->request->getData('fc_name'); 
+            // echo $title; exit;
+
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('INSERT INTO f_categories (fc_name, fc_created) VALUES  
+                ("'.$title.'", NOW())
+             ');
+
+            $this->Flash->custom_success(__('Category added.'));
+            $this->redirect(['action' => 'categoryAdd']);
+
+        }
+
+            
+            // $results = $stmt ->fetchAll('assoc');
+            // $this->set(compact('results'));
+
+
+        $this->viewBuilder()->setLayout('custom_manage');
+
+    } 
+    // end Category add
+
+    // Categories
+    public function categories()
+    {
+        // admin verify
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM f_categories WHERE 
+            fc_is_deleted = 0
+            ORDER BY fc_id DESC
+         ');
+        $results = $stmt ->fetchAll('assoc');
+        $this->set(compact('results'));
+        $this->viewBuilder()->setLayout('custom_manage');
+       
+    }
+    // end Categories
+
+    // Delete Category
+    public function categoryDelete()
+    {
+        // Verify admin
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        if(isset($admin_id))
+        {
+            $fc_id = $_GET['id'];
+            // echo $user_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE f_categories 
+                    SET fc_is_deleted = 1
+                    WHERE 
+                    fc_id = "'.$fc_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Category Deleted. '));
+                 return $this->redirect(['action' => 'categories']);
+
+
+        }
+
+        
+    }
+    // End Delete Category
+
+    // Edit category
+    public function categoryEdit()
+    {
+
+        // admin verify
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        // Fill text with event details
+        $fc_id = $_GET['id'];
+
+        // echo $event_id;
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM f_categories WHERE 
+            fc_id = "'.$fc_id.'"
+         ');
+        $results = $stmt ->fetchAll('assoc');
+        $this->set(compact('results'));
+        // en
+
+        if ($this->request->is('post')) 
+        {
+            // echo "form submitted"; exit;
+            $title = $this->request->getData('fc_name'); 
+            // echo $start_date; exit;
+
+           
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE f_categories 
+                SET 
+                fc_name = "'.$title.'"
+                WHERE 
+                fc_id = "'.$fc_id.'"
+             ');
+
+            $this->Flash->custom_success(__('Category Updated.'));
+            $this->redirect(['action' => 'categories']);
+
+        }
+
+            
+            // $results = $stmt ->fetchAll('assoc');
+            // $this->set(compact('results'));
+
+
+        $this->viewBuilder()->setLayout('custom_manage');
+
+    } 
+    // End Edit category
     
 
 }
