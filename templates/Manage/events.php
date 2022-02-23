@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>BAAP ADMIN - Events</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -109,6 +109,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
+      <th scope="col">Link</th>
       <th scope="col">Start Date</th>
       <th scope="col">End Date</th>
       <th scope="col">Description</th>
@@ -125,8 +126,28 @@
     <tr>
       <th scope="row"><?= $i ?></th>
       <td><?php echo $result['title']; ?></td>
-      <td><?php echo $result['start_date']; ?></td>
-      <td><?php echo $result['end_date']; ?></td>
+      <?php 
+        $id = $result['id'];
+        $slug = $result['slug'];
+    ?>
+      <td><a href="<?php echo $this->Url->build('/events/view/'.$id.'/'.$slug.' ');?>" target="_blank">View</a></td>
+      <td>
+        <?php 
+        // echo $result['start_date']; ?>
+           <?php 
+           $d = $result['start_date'];
+$d = new DateTime($d);
+    echo $d->format('d-m-Y');
+           ?> 
+        </td>
+      <td><?php 
+      // echo $result['end_date']; ?>
+          <?php 
+             $d = $result['end_date'];
+             $d = new DateTime($d);
+             echo $d->format('d-m-Y');
+          ?> 
+      </td>
       <td>
         <?php 
             $in = $result['message'];
