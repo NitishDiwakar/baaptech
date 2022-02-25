@@ -344,6 +344,21 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout('custom'); 
     }
 
+    public function usernamechecker()
+    {
+
+        echo "hola";
+        if ($this->request->is('post')) 
+        {
+            $username = $this->request->getData('username');
+        echo "hola";
+        // $conn = ConnectionManager::get('default');
+        // $stmt = $conn->execute('SELECT * FROM donation WHERE user_id = "'.$user_id.'" ');
+        }
+
+        $this->viewBuilder()->setLayout('custom');
+    }   
+
 
 
 }

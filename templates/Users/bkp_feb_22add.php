@@ -3,9 +3,8 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
-// echo $this->request->getSession()->read('user_id');
+// echo $this->request->getSession()->read('token');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -34,70 +33,36 @@
         
         <!-- App features section-->
         <section id="features">
-            <div class="container">
+            <div class="container px-5">
                 <div class="row gx-5 align-items-center" style="margin-top: 2%">
                     <div class="col-lg-6 order-lg-1 mb-5 mb-lg-0">
                         <div class="container-fluid px-5">
                             <!-- Some text and donation button -->
-                            <!-- <form id="contactForm1" data-sb-form-api-token="API_TOKEN"> -->
-                                <!--  -->
                             <?= $this->Form->create($user) ?>
-                            <!-- Name input-->
                             
-                            <!-- Email address input-->
-                            <div class="form-floating mb-3">
-                                <!-- <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" /> -->
-                                <?php echo $this->Flash->render() ?>
-                                <legend><?= __('Login') ?></legend>
-                                 
-                                <?php  echo $this->Form->control('email', ['class' => 'form-control']); ?>
-                                <!-- <label for="email">Email address</label> -->
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
-                            <!-- Phone number input-->
-                            <div class="form-floating mb-3">
-                                <!-- <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" /> -->
-                                <?php  echo $this->Form->control('password', ['class' => 'form-control']); ?>
-                                <!-- <label for="password">Password</label> -->
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Please enter your password.</div>
-                            </div>
-
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <!-- <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div> -->
-
-                            
-
-                            <!-- Submit Button-->
+                                <legend><?= __('Signup') ?></legend>
+                                <?php
+                                    echo $this->Form->control('Name', ['class' => 'form-control']);
+                                    echo $this->Form->control('user_name', ['class' => 'form-control', 'required']);
+                                    echo $this->Form->control('email', ['class' => 'form-control']);
+                                    echo $this->Form->control('password', ['class' => 'form-control']);
+                                ?>
+                            <br>
                             <div class="d-grid">
-                                <!-- <button class="btn btn-primary rounded-pill btn-lg disabled" id="submitButton" type="submit">Submit</button> -->
-                                 <?= $this->Form->button(__('login'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
+                                <?= $this->Form->button(__('Submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
                             </div>
-                        <!-- </form> -->
-                        <?= $this->Form->end() ?>
-                        <div class="row">
+                            <?= $this->Form->end() ?>
+                            <div class="row">
                             <div class="col-sm-6">
                                 <?php 
                                 echo $this->Html->link(
-                                    'Forgot Password',
-                                    ['controller' => 'Users', 'action' => 'login/#', '_full' => true], ['class' => 'nav-link me-lg']
+                                    'Login',
+                                    ['controller' => 'Users', 'action' => 'login', '_full' => true], ['class' => 'nav-link me-lg']
                                 );
                                 ?>
                             </div>
                             <div class="col-sm-6">
-                                <?php 
-                                echo $this->Html->link(
-                                    'Register',
-                                    ['controller' => '/', 'action' => 'signup', '_full' => true], ['class' => 'nav-link me-lg']
-                                );
-                                ?>
+                                
                             </div>
                         </div>
                         </div>
@@ -113,9 +78,7 @@
                 </div>
             </div>
         </section>
-        <!-- Basic features section-->
-        
-        <!-- Call to action section-->
+
         
         <!-- App badge section-->
         <section class="bg-gradient-primary-to-secondary" id="download">

@@ -687,11 +687,12 @@ public function groups()
         {
             // echo "form submitted"; exit;
             $title = $this->request->getData('fc_name'); 
+            $fc_short_descr = $this->request->getData('fc_short_descr'); 
             // echo $title; exit;
 
             $conn = ConnectionManager::get('default');
-            $stmt = $conn->execute('INSERT INTO f_categories (fc_name, fc_created) VALUES  
-                ("'.$title.'", NOW())
+            $stmt = $conn->execute('INSERT INTO f_categories (fc_name, fc_short_descr, fc_created) VALUES  
+                ("'.$title.'", "'.$fc_short_descr.'", NOW())
              ');
 
             $this->Flash->custom_success(__('Category added.'));
@@ -791,13 +792,15 @@ public function groups()
         {
             // echo "form submitted"; exit;
             $title = $this->request->getData('fc_name'); 
+            $fc_short_descr = $this->request->getData('fc_short_descr'); 
             // echo $start_date; exit;
 
            
             $conn = ConnectionManager::get('default');
             $stmt = $conn->execute('UPDATE f_categories 
                 SET 
-                fc_name = "'.$title.'"
+                fc_name = "'.$title.'",
+                fc_short_descr = "'.$fc_short_descr.'"
                 WHERE 
                 fc_id = "'.$fc_id.'"
              ');

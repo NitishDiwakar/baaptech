@@ -23,6 +23,52 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
 
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+            /*$(document).ready(function() {
+                var x_timer;    
+                $("#username").keyup(function (e){
+                    clearTimeout(x_timer);
+                    var user_name = $(this).val();
+                    x_timer = setTimeout(function(){
+                        check_username_ajax(user_name);
+                    }, 1000);
+                }); 
+
+            function check_username_ajax(username){
+                $("#user-result").html(' loading...');
+                $.post('usernamechecker', {'username':username}, function(data) {
+                $("#user-result").html(data);
+                });
+            }
+            });*/
+
+            $(document).ready(function() {
+                var x_timer;    
+                $("#username").keyup(function (e){
+                    // clearTimeout(x_timer);
+                    /*var user_name = $(this).val();
+                    x_timer = setTimeout(function(){
+                        check_username_ajax(user_name);
+                    }, 1000);*/
+                    // n
+                    $.ajax({
+            url: 'users/usernamechecker',
+            type: 'POST',
+            data: $(this).serialize() // it will serialize the form data
+        })
+        .done(function(data){
+            $('#form-content').fadeOut('slow', function(){
+                $('#form-content').fadeIn('slow').html(data);
+            });
+            // $("#form-content").fadeIn('slow');
+        })
+                    // dn
+                }); 
+
+           
+            });
+        </script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -38,14 +84,17 @@
                     <div class="col-lg-6 order-lg-1 mb-5 mb-lg-0">
                         <div class="container-fluid px-5">
                             <!-- Some text and donation button -->
-                            <?= $this->Form->create($user) ?>
+   <?= $this->Form->create($user) ?>
                             
-                                <legend><?= __('Signup') ?></legend>
-                                <?php
-                                    echo $this->Form->control('Name', ['class' => 'form-control']);
-                                    echo $this->Form->control('email', ['class' => 'form-control']);
-                                    echo $this->Form->control('password', ['class' => 'form-control']);
-                                ?>
+ <legend><?= __('Signup') ?></legend>
+    <?php
+        echo $this->Form->control('Name', ['class' => 'form-control']);
+        // echo $this->Form->control('user_name', ['class' => 'form-control', 'required', 'id' => 'username']); ?>  
+            <span id="user-result"></span>
+        <?php
+        echo $this->Form->control('email', ['class' => 'form-control']);
+        echo $this->Form->control('password', ['class' => 'form-control']);
+    ?>
                             <br>
                             <div class="d-grid">
                                 <?= $this->Form->button(__('Submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
@@ -166,6 +215,8 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
+
+        
     </body>
 </html>
 

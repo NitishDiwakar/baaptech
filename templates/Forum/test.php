@@ -16,6 +16,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
 
+        <style type="text/css">
+            /*.offcanvas {
+  background-color: blue; 
+  width: 50%;
+  height: auto;
+}*/
+        </style>
+
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
     <body id="page-top">
@@ -80,11 +88,23 @@
                             <div class="d-grid">
                                  <?= $this->Form->button(__('submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
                             </div>
-                        <!-- </form> -->
+                        
                         <?= $this->Form->end() ?>    
             </div> <!-- end form content -->
     </div>
 </div> <!-- End row -->
+                <!-- n -->
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Toggle bottom offcanvas</button>
+
+<div class="offcanvas offcanvas-bottom mx-5" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body ">
+    ... ad fas fasdf 
+  </div>
+</div>
                 <!-- en -->
             </div>
         </section>

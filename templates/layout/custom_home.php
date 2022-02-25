@@ -37,8 +37,12 @@ $cakeDescription = 'BAAP: Bhartiya Awakend Azad Party';
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
 
     <?php // echo $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    <?php // echo $this->Html->css(['custom']) ?>
     <?= $this->Html->css(['styles']) ?>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://kit.fontawesome.com/4538d33149.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     
     <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
 

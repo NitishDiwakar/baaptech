@@ -15,6 +15,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
+    <?= $this->Html->css(['custom']) ?>
+    <?= $this->Html->css(['styles']) ?>
+
+     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
     </head>
     <body id="page-top">
@@ -33,55 +38,148 @@
                 <!-- n -->
     <div class="row">
         <div class="col-12">
-            <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Events</h5>
+            <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Forum</h5>
         </div>
     </div>
 
 <div class="row">
-    <?php // print_r($results); 
-        foreach ($results as $result)
-        {
-    ?>
-    <div class="col-lg-4 col-md-6 col-sm-12">
-        <!-- style="width: 18rem;"
-        style="border-top: 4px solid green;"
-         -->
-        <div class="card shadow">
-        <?php $image = $result['image']; ?>
-  <img src="<?php echo $this->Url->build('/img/uploads/events/'.$image.' ');?>" class="card-img-top" alt="...">
-  <!-- <img src="<?php echo $this->Url->build('/img/bitcoin.jpg');?>" class="card-img-top" alt="..."> -->
-  <div class="card-body">
-    <h5 class="card-title"><?php echo $result['title']; ?></h5>
-    <p class="text-muted small mb-1">Start: <?php 
-$d = $result['start_date'];
-$d = new DateTime($d);
-    echo $d->format('d-m-Y'); 
-?></p>
-    <p class="text-muted small">End: &nbsp;&nbsp;<?php 
-$d = $result['end_date'];
-$d = new DateTime($d);
-    echo $d->format('d-m-Y');
-?></p>
-    <p class="card-text">
-        <?php 
-            $in = $result['message'];
-            $out = strlen($in) > 75 ? substr($in,0,75)."..." : $in;
-            echo $out;
-        ?>
-    </p>
-    <?php 
-        $id = $result['id'];
-        $slug = $result['slug'];
-    ?>
-    <a href="<?php echo $this->Url->build('/events/view/'.$id.'/'.$slug.' ');?>" class="btn btn-primary">View more</a>
-  </div>
-    </div>
-    </div>
-<?php } ?>
-
-
     
 </div> <!-- End row -->
+<div class="sideNavContainer"><nav class="IndexPage-nav sideNav"><ul><li class="item-newDiscussion App-primaryControl">
+<?php 
+   $user_id = $this->request->getSession()->read('user_id');
+   if($user_id == NULL)
+   {
+    // echo "User is not logged in";
+    ?> 
+<button title="Login to start discussion" class="Button Button--primary IndexPage-newDiscussion hasIcon" type="button" itemclassname="App-primaryControl" disabled><i aria-hidden="true" class="icon fas fa-edit Button-icon"></i><span class="Button-label">Start a Discussion</span></button>
+<?php 
+   }
+   else 
+   {
+    // echo "user is logged in";
+    ?> 
+        <button id="show1" class="Button Button--primary IndexPage-newDiscussion hasIcon" type="button" itemclassname="App-primaryControl"><i aria-hidden="true" class="icon fas fa-edit Button-icon"></i><span class="Button-label">Start a Discussion</span></button>
+<?php 
+   }
+?>
+    
+</li><li class="item-nav"><div class="ButtonGroup Dropdown dropdown App-titleControl Dropdown--select itemCount7"><button class="Dropdown-toggle Button" aria-haspopup="menu" aria-label="Toggle navigation dropdown menu" data-toggle="dropdown">
+    <span class="Button-label">All Discussions</span><i aria-hidden="true" class="icon fas fa-sort Button-caret"></i></button><ul class="Dropdown-menu dropdown-menu "><li class="item-allDiscussions active">
+        <a class="hasIcon" href="<?php echo $this->Url->build('/forum');?>" class="img-fluid" active="true"><i aria-hidden="true" class="icon far fa-comments Button-icon"></i><span class="Button-label">All Discussions</span></a>
+    </li><li class="item-tags">
+        <a class="hasIcon" href="<?php echo $this->Url->build('/forum/categories');?>" active="false"><i aria-hidden="true" class="icon fas fa-th-large Button-icon"></i><span class="Button-label">Categories</span></a>
+    </li><li class="Dropdown-separator"></li>
+
+    <li class="item-tag1">
+        <a class="TagLinkButton hasIcon" href="<?php echo $this->Url->build('/forum/categories/1');?>" style="--color: #888;" title=""><span class="Button-icon icon TagIcon" style="--color: #888;"></span><span class="Button-label">General</span></a>
+    </li>
+
+    <?php // print_r($categories); ?>
+    <?php
+        foreach($categories as $category)
+        {
+            $category_id = $category['fc_id'];
+    ?>
+    <li class="item-tag2"><a class="TagLinkButton hasIcon" href="<?php echo $this->Url->build('/forum/categories/'.$category_id.'');?>" style="" title="Sample tag 1"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label"><?php echo $category['fc_name'] ?></span></a></li>
+    <?php  } ?>
+    <!-- <li class="item-tag3"><a class="TagLinkButton hasIcon" href="#/flarum_test/public/t/tag-2" style="" title="Sample tag 2"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label">tag_2</span></a></li>
+    <li class="item-tag4"><a class="TagLinkButton hasIcon" href="#/flarum_test/public/t/tag-3" style="" title="description of tag"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label">tag_3</span></a></li> -->
+
+</ul></div></li></ul></nav><div class="IndexPage-results sideNavOffset"><div class="IndexPage-toolbar"><ul class="IndexPage-toolbar-view"><li class="item-sort"><div class="ButtonGroup Dropdown dropdown  itemCount4"><button class="Dropdown-toggle Button" aria-haspopup="menu" aria-label="Change discussion list sorting" data-toggle="dropdown"><span class="Button-label">Latest</span><i aria-hidden="true" class="icon fas fa-caret-down Button-caret"></i></button><ul class="Dropdown-menu dropdown-menu "><li class=""><button class="hasIcon" type="button" active=""><i aria-hidden="true" class="icon fas fa-check Button-icon"></i><span class="Button-label">Latest</span></button></li><li class=""><button class="hasIcon" type="button"><i aria-hidden="true" class="icon true Button-icon"></i><span class="Button-label">Top</span></button></li><li class=""><button class="hasIcon" type="button"><i aria-hidden="true" class="icon true Button-icon"></i><span class="Button-label">Newest</span></button></li><li class=""><button class="hasIcon" type="button"><i aria-hidden="true" class="icon true Button-icon"></i><span class="Button-label">Oldest</span></button></li></ul></div></li></ul><ul class="IndexPage-toolbar-action"><li class="item-refresh"><button class="Button Button--icon hasIcon" type="button" aria-label="Refresh"><i aria-hidden="true" class="icon fas fa-sync Button-icon"></i><span class="Button-label"></span></button></li></ul></div>
+
+<div class="DiscussionList">
+    <?php echo $this->Flash->render() ?>
+<!-- Forum add form -->
+    <div class="forum_add mb-4" id="forum_add">
+        <?= $this->Form->create($forumAdd) ?>
+                            <!-- Name input-->
+                            
+                            <!-- Email address input-->
+    <div class="row">
+        <legend><?= __('Start a Discussion') ?>
+            <!-- <button id="hide2" class="Button Button--secondary float-end" type="button"><i aria-hidden="true" class="icon fa fa-close fa-2x Button-icon"></i><span class="Button-label"></span></button> -->
+            <button id="hide2" class="Button Button--icon hasIcon float-end" type="button" aria-label="Refresh"><i aria-hidden="true" class="icon fas fa-close Button-icon"></i><span class="Button-label"></span></button>
+        </legend>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label>Discussion Category</label>
+                <select name="cat" class="form-select">
+                    <option value="1">General</option>
+<?php 
+    foreach($categories as $category)
+        {
+            $category_id   = $category['fc_id'];
+            $category_name = $category['fc_name'];
+?>
+    <option value="<?= $category_id ?>"><?= $category_name ?></option>
+<?php } ?>
+                    <!-- <option value="b">b</option>
+                    <option value="c">c</option> -->
+                </select>
+            </div>
+        </div> <!-- End col-md-6 -->
+        <div class="col-md-6">
+            <div class="form-floating mb-3">
+
+                <?php echo $this->Flash->render() ?>
+                
+                 
+                <?php  echo $this->Form->control('fd_title', ['class' => 'form-control', 'label' => 'Discussion Title']); ?>
+                
+            </div>
+        </div>
+    </div>
+    
+                            <!-- Forum text input-->
+   <div class="form-floating mb-3">
+    
+    <?php  echo $this->Form->control('fd_post', ['class' => 'form-control', 'type' => 'textarea', 'id' => 'editor1', 'required', 'label' => 'Discussion Details']); ?>
+                            </div>
+
+                   <!-- Submit Button-->
+<!-- d-grid -->
+<div class="">
+     <?= $this->Form->button(__('Post Discussion'),['class'=>'Button Button--primary']) ?>
+     
+     <button id="hide1" class="Button Button--secondary float-end" type="button"><i aria-hidden="true" class="icon fas fa-close Button-icon"></i><span class="Button-label">Close</span></button>
+</div>
+                        <!-- </form> -->
+                        <?= $this->Form->end() ?>
+    </div>
+<!-- End Forum add form -->
+    <ul class="DiscussionList-discussions">
+<?php  
+    // print_r($all_discussions);
+    foreach ($all_discussions as $all_discussion)
+    {
+        $discussion_id = $all_discussion['fd_id'];
+        $user_id = $all_discussion['id'];
+        // echo $all_discussion['fd_title'] . "<br>";
+?>
+<li data-id="5"><div class="DiscussionListItem"><span class="Slidable-underneath Slidable-underneath--left Slidable-underneath--elastic disabled"><i aria-hidden="true" class="icon fas fa-check "></i></span><div class="DiscussionListItem-content Slidable-content"><a class="DiscussionListItem-author" href="<?php echo $this->Url->build('/forum/users/view/'.$user_id.'');?>" title="" aria-label="john started 14 hours ago" data-original-title="john started 14 hours ago"><img class="Avatar " src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt=""></a><ul class="DiscussionListItem-badges badges"></ul><a href="<?php echo $this->Url->build('/forum/view/'.$discussion_id.'');?>" class="DiscussionListItem-main"><h3 class="DiscussionListItem-title"><?php echo $all_discussion['fd_title']; ?></h3><ul class="DiscussionListItem-info"><li class="item-tags"><span class="TagsLabel "><span style="" class="TagLabel "><span class="TagLabel-text">
+    <i class="icon fa fa-tag"></i> <?php echo $all_discussion['fc_name']; ?></span></span></span></li>
+
+    <!-- <li class="item-terminalPost"><span><i aria-hidden="true" class="icon fas fa-reply "></i> <span class="username">john</span> replied <time pubdate="" datetime="2022-02-24T00:03:06+05:30" title="Thursday, February 24, 2022 12:03 AM" data-humantime="">15 hours ago</time></span></li> -->
+
+<li class="item-terminalPost"><span> <span class="username"><?php echo $all_discussion['Name']; ?></span> started <time pubdate="" datetime="2022-02-08T13:47:49+05:30" title="Tuesday, February 8, 2022 1:47 PM" data-humantime=""><?php echo $all_discussion['fd_created']; ?></time></span></li>
+
+
+</ul></a><span class="DiscussionListItem-count"><span aria-hidden="true">4</span><span class="visually-hidden">4 replies</span></span></div></div>
+</li>
+<?php } ?>
+    <!-- <li data-id="5"><div class="DiscussionListItem"><span class="Slidable-underneath Slidable-underneath--left Slidable-underneath--elastic disabled"><i aria-hidden="true" class="icon fas fa-check "></i></span><div class="DiscussionListItem-content Slidable-content"><a class="DiscussionListItem-author" href="#/flarum_test/public/u/john" title="" aria-label="john started 14 hours ago" data-original-title="john started 14 hours ago"><img class="Avatar " src="http://localhost/flarum_test/public/assets/avatars/BrlOPDK2mAm72gMn.png" alt=""></a><ul class="DiscussionListItem-badges badges"></ul><a href="#/flarum_test/public/d/5-sample-discussion-5" class="DiscussionListItem-main"><h3 class="DiscussionListItem-title">Sample Discussion 5</h3><ul class="DiscussionListItem-info"><li class="item-tags"><span class="TagsLabel "><span style="" class="TagLabel "><span class="TagLabel-text"><i class="icon fa fa-tag"></i> tag_1</span></span></span></li><li class="item-terminalPost"><span><i aria-hidden="true" class="icon fas fa-reply "></i> <span class="username">john</span> replied <time pubdate="" datetime="2022-02-24T00:03:06+05:30" title="Thursday, February 24, 2022 12:03 AM" data-humantime="">15 hours ago</time></span></li></ul></a><span class="DiscussionListItem-count"><span aria-hidden="true">4</span><span class="visually-hidden">4 replies</span></span></div></div>
+</li> -->
+
+<!-- <li data-id="2"><div class="DiscussionListItem"><span class="Slidable-underneath Slidable-underneath--left Slidable-underneath--elastic disabled"><i aria-hidden="true" class="icon fas fa-check "></i></span><div class="DiscussionListItem-content Slidable-content"><a class="DiscussionListItem-author" href="#/flarum_test/public/u/admin" title="" aria-label="admin started 16 days ago" data-original-title="admin started 16 days ago"><span class="Avatar " style="--avatar-bg: #a0e5cf;">A</span></a><ul class="DiscussionListItem-badges badges"></ul><a href="#/flarum_test/public/d/2-sample-discussion-1" class="DiscussionListItem-main"><h3 class="DiscussionListItem-title">Sample Discussion 1</h3><ul class="DiscussionListItem-info">
+    <li class="item-terminalPost"><span> <span class="username">admin</span> started <time pubdate="" datetime="2022-02-08T13:47:49+05:30" title="Tuesday, February 8, 2022 1:47 PM" data-humantime="">16 days ago</time></span></li>
+
+</ul></a><span class="DiscussionListItem-count"><span aria-hidden="true">0</span><span class="visually-hidden">0 replies</span></span></div></div>
+</li> -->
+
+
+</ul>
+<div class="DiscussionList-loadMore"></div></div></div></div>
                 <!-- en -->
             </div>
         </section>
@@ -176,5 +274,32 @@ $d = new DateTime($d);
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
+         <script type="text/javascript">
+            /*$(function() {
+                // Code here
+                // ('.forum_add'). hide(); 
+                $('#forum_add'). hide(); 
+            });
+*/
+            $( document ).ready(function() {
+                // console.log( "ready!" );
+                $('#forum_add'). hide();
+
+                $("#show1").click(function(){
+                    $("#forum_add").show();
+                  });
+
+                $("#hide1").click(function(){
+                    $("#forum_add").hide();
+                  });
+
+                $("#hide2").click(function(){
+                    $("#forum_add").hide();
+                  });
+            });
+        </script>
+        <script>
+                CKEDITOR.replace('editor1');
+        </script>
     </body>
 </html>

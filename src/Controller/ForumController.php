@@ -27,9 +27,84 @@ class ForumController extends AppController
             $results = $stmt ->fetchAll('assoc');
             $this->set(compact('results'));
 
+            // Get Categories
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM f_categories WHERE fc_is_deleted = 0 
+                AND fc_id != 1 
+                ORDER BY fc_name
+                 ');
+            $categories = $stmt ->fetchAll('assoc');
+            $this->set(compact('categories'));
+            // end get categories
+
+            // forum post
+            if ($this->request->is('post'))
+            {
+
+                // check user auth
+                $user_id = $this->request->getSession()->read('user_id');
+                    // Check if user is logged in
+                   if($user_id == NULL)
+                    {
+                        echo "Please login to add discussion"; exit;
+                    }
+                    // Check if user is banned
+                    if($user_id !== NULL)
+                    {
+                        $conn = ConnectionManager::get('default');
+                        $stmt = $conn->execute('SELECT id, is_banned FROM users WHERE id = "'.$user_id.'" ');
+                        $user = $stmt ->fetchAll('assoc');
+                        // print_r($user); exit;
+                        $banned_status = $user[0]['is_banned'];
+                        if($banned_status == 1)
+                        {
+                            $this->Flash->custom_error(__('You are banned from posting new discussions.'));
+
+                            return $this->redirect(['action' => 'index']);
+                        }
+                    }
+                // end check user auth
+                // Get form data
+                $cat = $this->request->getData('cat');
+                $fd_title = $this->request->getData('fd_title');
+                $fd_post = $this->request->getData('fd_post');
+                // echo $fd_title; exit; 
+                /*echo $cat . "<br>"; 
+                echo $fd_title . "<br>"; 
+                echo $fd_post; exit; */
+
+                $conn = ConnectionManager::get('default');
+                $stmt = $conn->execute('
+                INSERT INTO f_discussions (`fd_user_id`,`fd_title`, `fd_cat`, `fd_post`, `fd_created`)
+                VALUES 
+                ("'.$user_id.'", "'.$fd_title.'", "'.$cat.'", "'.$fd_post.'", NOW())
+                ');
+            $this->Flash->custom_success(__('Discussion Posted.'));
+            return $this->redirect(['action' => 'index']);
+
+
+            }
+            // end forum post
+
+    // Get all discussions
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM f_discussions
+            INNER JOIN f_categories ON f_discussions.fd_cat = f_categories.fc_id
+            INNER JOIN users ON f_discussions.fd_user_id = users.id
+            WHERE 
+            f_discussions.fd_is_delete = 0
+            AND users.is_banned = 0 
+            AND users.is_deleted = 0 
+            ORDER BY f_discussions.fd_id DESC
+         ');
+        $all_discussions = $stmt ->fetchAll('assoc');
+        $this->set(compact('all_discussions'));
+         
+    // endGet discussions
+
         $this->viewBuilder()->setLayout('custom_home');
        
-    }
+    } // end index()
 
     public function view($id = null)
     {
@@ -95,6 +170,18 @@ class ForumController extends AppController
         }
          $this->viewBuilder()->setLayout('custom_home');
     }
+
+    // Get forum categories
+    public function categories()
+    {
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM f_categories WHERE fc_is_deleted = 0
+             ');
+        $categories = $stmt ->fetchAll('assoc');
+        $this->set(compact('categories'));
+
+    }
+    // End get forum categories
     
 
 }

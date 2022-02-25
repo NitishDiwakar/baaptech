@@ -111,8 +111,10 @@
         <!-- <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" /> -->
         <!-- <legend><?= __('Event Add') ?></legend> -->
         <?php $event_title = $results[0]['fc_name']; ?>
-        <?php  echo $this->Form->control('fc_name', ['class' => 'form-control', 'label' => 'Category Title', 'required', 'value' => $event_title]); ?>
+        <?php  echo $this->Form->control('fc_name', ['class' => 'form-control mb-2', 'label' => 'Category Title', 'required', 'value' => $event_title]); ?>
         <!-- <label for="email">Email address</label> -->
+        <?php $fc_short_descr = $results[0]['fc_short_descr']; ?>
+        <?php  echo $this->Form->control('fc_short_descr', ['class' => 'form-control', 'label' => 'Short Description', 'type' => 'textarea', 'maxlength' => '255', 'required', 'value' => $fc_short_descr]); ?>
     </div>
 
     
