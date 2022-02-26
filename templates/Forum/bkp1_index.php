@@ -1,6 +1,3 @@
-<?php  
-use Cake\Datasource\ConnectionManager;
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,9 +18,6 @@ use Cake\Datasource\ConnectionManager;
     <?= $this->Html->css(['custom']) ?>
     <?= $this->Html->css(['styles']) ?>
 
-<style type="text/css">
-    a {text-decoration: none !important;}
-</style>
      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
      <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
@@ -172,30 +166,12 @@ use Cake\Datasource\ConnectionManager;
 
     <!-- <li class="item-terminalPost"><span><i aria-hidden="true" class="icon fas fa-reply "></i> <span class="username">john</span> replied <time pubdate="" datetime="2022-02-24T00:03:06+05:30" title="Thursday, February 24, 2022 12:03 AM" data-humantime="">15 hours ago</time></span></li> -->
 
-<li class="item-terminalPost"><span> <span class="username"><?php echo $all_discussion['Name']; ?></span> started <time pubdate="" datetime="2022-02-08T13:47:49+05:30" title="<?php echo $all_discussion['fd_created']; ?>" data-humantime=""><?php 
-// echo $all_discussion['fd_created']; 
-$created_at = $all_discussion['fd_created'];
-$fd_created = strtotime($created_at);
-echo get_timeago($fd_created);
-?></time></span></li>
+<li class="item-terminalPost"><span> <span class="username"><?php echo $all_discussion['Name']; ?></span> started <time pubdate="" datetime="2022-02-08T13:47:49+05:30" title="Tuesday, February 8, 2022 1:47 PM" data-humantime=""><?php echo $all_discussion['fd_created']; ?></time></span></li>
 
 
 </ul></a>
 
-<span class="DiscussionListItem-count"><span aria-hidden="true">
-    <!-- 4 -->
-    <!-- Number of comments -->
-    <?php  
-    // echo $all_discussion['fd_id'];
-    $fcm_disc_id = $all_discussion['fd_id'];
-    // SELECT COUNT(*) FROM `f_comments` WHERE fcm_disc_id = 11
-    $conn = ConnectionManager::get('default');
-            $stmt = $conn->execute('SELECT COUNT(*) FROM `f_comments` WHERE fcm_disc_id = "'.$fcm_disc_id.'" ');
-    $total_cmts = $stmt ->fetchAll('assoc');
-    // print_r($total_cmts);
-    echo $total_cmts[0]['COUNT(*)'];
-    ?>
-</span><span class="visually-hidden">4 replies</span></span>
+<span class="DiscussionListItem-count"><span aria-hidden="true">4</span><span class="visually-hidden">4 replies</span></span>
 </div>
 </div>
 
@@ -221,9 +197,7 @@ echo get_timeago($fd_created);
             </div>
         </section>
         <!-- Basic features section-->
-        <!-- test temp -->
         
-        <!-- end test temp -->
         <!-- Call to action section-->
         
         <!-- App badge section-->

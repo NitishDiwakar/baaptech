@@ -22,10 +22,6 @@ use Cake\Datasource\ConnectionManager;
     <?= $this->Html->css(['custom']) ?>
     <?= $this->Html->css(['styles']) ?>
 
-
-<style type="text/css">
-    a {text-decoration: none !important;}
-</style>
      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.2/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -55,7 +51,6 @@ use Cake\Datasource\ConnectionManager;
             }*/
             ?>
             <div class="container px-5">
-                <?php echo $this->Flash->render() ?>
                 <div id="">
                     <div class="DiscussionPage">
                         <div class="DiscussionPage-discussion"><header class="Hero DiscussionHero"><div class="container"><ul class="DiscussionHero-items"><li class="item-badges"><ul class="DiscussionHero-badges badges"><li class="item-subscription">
@@ -100,19 +95,11 @@ use Cake\Datasource\ConnectionManager;
 if(isset($user_level))  {
     if($user_level == 1) {
 ?>
-
-<?php 
-     $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    // get last segment of url
-    $last_segment = basename(parse_url($url, PHP_URL_PATH));
-    $fcm_disc_id = $last_segment;
-// echo $fcm_disc_id; 
-?>
  <div class="dropdown">
   <button onclick="myFunction()" class="dropbtn">Admin Actions <i class="fa fa-caret-down"></i></button>
   <div id="myDropdown" class="dropdown-content">
-    <a onclick="return confirm('Close this discussion?')" href="<?php echo $this->Url->build('/forum/close_disc?id='.$fcm_disc_id.' ');?>">Close Discussion</a>
-    <a onclick="return confirm('Delete this discussion?')" href="<?php echo $this->Url->build('/forum/delete_disc?id='.$fcm_disc_id.' ');?>">Delete Discussion</a>
+    <a href="#">Close Discussion</a>
+    <a href="#">Delete Discussion</a>
     <!-- <a href="#">Link 3</a> -->
   </div>
 </div> 
@@ -135,19 +122,11 @@ if(isset($user_level))  {
 
                 </div></div>
             </li> -->
-                                    </ul></nav><div class="DiscussionPage-stream"><div class="PostStream"><div class="PostStream-item" data-index="0" data-time="2022-02-23T18:22:19.000Z" data-number="1" data-id="13" data-type="comment">
-    <article class=" CommentPost Post Post--by-actor"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3><a href="#/username"><img class="Avatar PostUser-avatar" src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt="">
+                                    </ul></nav><div class="DiscussionPage-stream"><div class="PostStream"><div class="PostStream-item" data-index="0" data-time="2022-02-23T18:22:19.000Z" data-number="1" data-id="13" data-type="comment"><article class=" CommentPost Post Post--by-actor"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3><a href="#/flarum_test/public/u/john"><img class="Avatar PostUser-avatar" src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt="">
 <!-- user online icon -->
 <!-- <span class="UserOnline"><i aria-hidden="true" class="icon fas fa-circle "></i></span> -->
                                         <span class="username">
-                                        <?php echo $discussion[0]['Name']; ?></span></a></h3><ul class="PostUser-badges badges"></ul></div></li><li class="item-meta"><div class="Dropdown PostMeta"><a class="Dropdown-toggle" data-toggle="dropdown"><time pubdate="" datetime="2022-02-23T23:52:19+05:30" title="<?php echo $discussion[0]['fd_created']; ?>" data-humantime="">
-                                            <!-- 2 days ago -->
-                                         <?php 
-                                         $created_at = $discussion[0]['fd_created'];
-                                         $fd_created = strtotime($created_at);
-                                         echo get_timeago($fd_created); 
-                                         ?>   
-                                        </time></a><div class="Dropdown-menu dropdown-menu"><span class="PostMeta-number">Post #1</span> <span class="PostMeta-time"><time pubdate="" datetime="2022-02-23T23:52:19+05:30">Wednesday, February 23, 2022 11:52 PM</time></span> <span class="PostMeta-ip"></span><input class="FormControl PostMeta-permalink"></div></div></li></ul></header>
+                                        <?php echo $discussion[0]['Name']; ?></span></a></h3><ul class="PostUser-badges badges"></ul></div></li><li class="item-meta"><div class="Dropdown PostMeta"><a class="Dropdown-toggle" data-toggle="dropdown"><time pubdate="" datetime="2022-02-23T23:52:19+05:30" title="Wednesday, February 23, 2022 11:52 PM" data-humantime="">2 days ago</time></a><div class="Dropdown-menu dropdown-menu"><span class="PostMeta-number">Post #1</span> <span class="PostMeta-time"><time pubdate="" datetime="2022-02-23T23:52:19+05:30">Wednesday, February 23, 2022 11:52 PM</time></span> <span class="PostMeta-ip"></span><input class="FormControl PostMeta-permalink"></div></div></li></ul></header>
                                         <!-- <div class="Post-body"><h3>Header</h3> -->
 <!-- <p><strong>This is some text</strong></p> -->
 <?php echo $discussion[0]['fd_post']; ?>
@@ -165,56 +144,7 @@ if(isset($user_level))  {
 </div>
 
 <div class="PostStream-item" data-index="1" data-time="2022-02-23T18:26:44.000Z" data-number="2" data-id="14" data-type="comment">
-<!-- Comments start -->
-<?php  
-    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    // get last segment of url
-    $last_segment = basename(parse_url($url, PHP_URL_PATH));
-    $fcm_disc_id = $last_segment;
 
-    $conn = ConnectionManager::get('default');
-    $stmt = $conn->execute('SELECT * FROM f_comments 
-    INNER JOIN users ON f_comments.fcm_user_id = users.id
-    WHERE fcm_is_delete = 0
-    AND fcm_disc_id = "'.$fcm_disc_id.'"
-    ORDER BY fcm_id ASC
-     ');
-    $comments = $stmt ->fetchAll('assoc');
-    // $this->set(compact('results'));
-?>
-<?php  
-    foreach ($comments as $comment) {
-?>
-<div class="PostStream-item" data-index="1" data-time="2022-02-23T18:26:44.000Z" data-number="2" data-id="14" data-type="comment">
- <article class=" CommentPost Post Post--by-actor"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3><a href="#/username"><img class="Avatar PostUser-avatar" src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt="">
-<!-- user online icon -->
-<!-- <span class="UserOnline"><i aria-hidden="true" class="icon fas fa-circle "></i></span> -->
-                                            <span class="username">
-                                        <?php echo $comment['Name']; ?></span></a></h3><ul class="PostUser-badges badges"></ul></div></li><li class="item-meta"><div class="Dropdown PostMeta"><a class="Dropdown-toggle" data-toggle="dropdown"><time pubdate="" datetime="2022-02-23T23:52:19+05:30" title="Wednesday, February 23, 2022 11:52 PM" data-humantime="">
-                                        <!-- 2 days ago -->
-                                        <?php 
-                                         $created_at = $comment['fcm_created'];
-                                         $fd_created = strtotime($created_at);
-                                         echo get_timeago($fd_created); 
-                                         ?> 
-                                    </time></a><div class="Dropdown-menu dropdown-menu"><span class="PostMeta-number">Post #1</span> <span class="PostMeta-time"><time pubdate="" datetime="2022-02-23T23:52:19+05:30">Wednesday, February 23, 2022 11:52 PM</time></span> <span class="PostMeta-ip"></span><input class="FormControl PostMeta-permalink"></div></div></li></ul></header>
-                                        <!-- <div class="Post-body"><h3>Header</h3> -->
-<!-- <p><strong>This is some text</strong></p> -->
-<?php // echo $discussion[0]['fd_post']; ?>
-<?php echo $comment['fcm_text']; ?>
-</div>
-
-<!-- <aside class="Post-actions">
-    <ul><li class="item-reply"><button class="Button Button--link" type="button"><span class="Button-label">Reply</span></button></li><li class="item-like"><button class="Button Button--link" type="button"><span class="Button-label">like</span></button></li></ul>
-</aside> -->
-    <!-- <footer class="Post-footer">
-    <ul><li class="item-liked"><div class="Post-likedBy"><i aria-hidden="true" class="icon far fa-thumbs-up "></i><a href="/flarum_test/public/u/john">You</a> like this.</div></li></ul>
-    </footer> -->
-</div></article>
-
-<!-- <div class="Post-quoteButtonContainer"></div></div> -->
-<?php } ?>
-<!-- Comments end -->
 
 <!-- If user is logged in -->
 <?php 
@@ -230,38 +160,17 @@ if(isset($user_level))  {
 </div>   
 <?php } ?>
 <!-- temp div -->
-<!-- <div id="form-content1"></div> -->
-<div id="hoo">
-  
-</div>
+<div id="form-content1"></div>
 <?php  
-// Check if discussion is closed
-$fd_is_close = $discussion[0]['fd_is_close'];
-if($fd_is_close == 0) 
-    {
-
     if($user_id !== NULL)
     {
        
 ?>
         <article class="Post ReplyPlaceholder"><header class="Post-header"><img class="Avatar PostUser-avatar mt-1" src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt="">
             <!-- form start -->
-            <!-- test div -->
-            <!-- <div id="hoo">Hoo</div> -->
-            <!-- end test div -->
             <div id="form-content">
             <?= $this->Form->create($user, ['id' => 'reg-form', 'method' => 'post', 'action' => '']) ?>
-            <?php  
-                $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-                // get last segment of url
-                $last_segment = basename(parse_url($url, PHP_URL_PATH));
-                $fcm_disc_id = $last_segment;
-            ?>
-            <input type="hidden" value="<?php echo $fcm_disc_id; ?>" name="fcm_disc_id">
-            <?php $user_id = $this->request->getSession()->read('user_id'); ?>
-            <input type="hidden" value="<?php echo $user_id; ?>" name="fcm_user_id">
-            <textarea id="tx1" name="fcm_text" class="form-control mb-2" placeholder="Write a Reply..."></textarea> 
+            <textarea name="fcm_text" class="form-control mb-2" placeholder="Write a Reply..."></textarea> 
 <button class="Button Button--primary IndexPage-newDiscussion hasIcon" type="submit" itemclassname="App-primaryControl"><i aria-hidden="true" class="icon fa fa-edit Button-icon"></i><span class="Button-label">Post Reply</span></button>
 <?php // echo $this->Form->button(__('submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
                 <?= $this->Form->end() ?>  
@@ -269,19 +178,7 @@ if($fd_is_close == 0)
         <!-- Form end -->
     </header></article>
 <?php 
-    } // end user login check
-
-} // if discussion is not closed
-?>
-
-<?php 
-    // if discussion is closed
-    if($fd_is_close == 1) 
-    {
-?>
-<div class="alert alert-warning">This discussion is closed.</div>
-<?php  
-    }
+    } 
 ?>
 <!-- End if user is logged in -->
 
@@ -355,10 +252,8 @@ window.onclick = function(event) {
                         data: $(this).serialize() // it will serialize the form data
                     })
                     .done(function(data){
-                        $('#hoo').fadeOut('slow', function(){
-                            // $('#form-content').fadeIn('slow').html(data);
-                            $('#tx1').val('');
-                            $('#hoo').fadeIn('slow').html(data);
+                        $('#form-content').fadeOut('slow', function(){
+                            $('#form-content').fadeIn('slow').html(data);
                         });
                         console.log('data submitted');
                         // $("#form-content").fadeIn('slow');

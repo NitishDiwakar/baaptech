@@ -17,6 +17,8 @@ class ForumController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+
     public function index()
     {
 
@@ -102,13 +104,24 @@ class ForumController extends AppController
          
     // endGet discussions
 
+    // get user type
+
+       /* $user_id = $this->request->getSession()->read('user_id');
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT id, user_level FROM users
+            WHERE 
+            id = "'.$user_id.'"');
+        $user_level = $stmt ->fetchAll('assoc');
+        $this->set(compact('user_level'));*/
+    // end get user type
+
         $this->viewBuilder()->setLayout('custom_home');
        
     } // end index()
 
     public function view($id = null)
     {
-        // $user = $this->Users->get($id, [
+        /*// $user = $this->Users->get($id, [
         //     'contain' => ['Articles'],
         // ]);
         $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -127,9 +140,43 @@ class ForumController extends AppController
         $results = $stmt ->fetchAll('assoc');
         $this->set(compact('results'));
 
-        // print_r($results);
+        // print_r($results);*/
+        $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $last_segment = basename(parse_url($url, PHP_URL_PATH));
+        // echo $last_segment; exit;
 
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM f_discussions
+            INNER JOIN f_categories ON f_discussions.fd_cat = f_categories.fc_id
+            INNER JOIN users ON f_discussions.fd_user_id = users.id
+            WHERE 
+            f_discussions.fd_is_delete = 0
+            AND users.is_banned = 0 
+            AND users.is_deleted = 0 
+            AND f_discussions.fd_id = "'.$last_segment.'"
+            ORDER BY f_discussions.fd_id DESC
+         ');
+        $discussion = $stmt ->fetchAll('assoc');
+        $this->set(compact('discussion'));
 
+        // print_r($discussion); 
+        // echo $discussion[0]['fd_post'];
+        // exit;
+        // submit form
+        if ($this->request->is('post')) 
+        {
+            // echo "test"; exit;
+            $fcm_text = $this->request->getData('fcm_text');
+            // echo "form submitted";
+            echo $fcm_text; exit;
+             $conn = ConnectionManager::get('default');
+             $stmt = $conn->execute('INSERT INTO f_comments (fcm_text) VALUES 
+                ("'.$txt_fname.'")
+         ');
+
+            // echo $txt_fname . " form submitted";
+        }
+        // end submit form
         $this->viewBuilder()->setLayout('custom_home');
         // $this->set(compact('user'));
     }
@@ -156,7 +203,7 @@ class ForumController extends AppController
 
     public function testing()
     {
-        // echo "test"; exit;
+        echo "test"; exit;
         if ($this->request->is('post')) 
         {
             $txt_fname = $this->request->getData('txt_fname');
@@ -182,6 +229,148 @@ class ForumController extends AppController
 
     }
     // End get forum categories
+
+    // add comment
+    public function addcomment()
+    {
+        // echo "test"; exit;
+        if ($this->request->is('post')) 
+        {
+            // echo "test"; exit;
+            $fcm_text = $this->request->getData('fcm_text');
+            $fcm_user_id = $this->request->getData('fcm_user_id');
+            $fcm_disc_id = $this->request->getData('fcm_disc_id');
+
+            // get user name
+             $conn = ConnectionManager::get('default');
+             $stmt = $conn->execute('
+                SELECT id, Name FROM users WHERE id = "'.$fcm_user_id.'"
+         ');
+             $name = $stmt ->fetchAll('assoc');
+            
+             // $naam = "Hayate";
+             $naam = $name[0]['Name'];
+
+             // $dp = $this->Url->build('/img/uploads/avatars/default.png');
+             $dp = '/img/uploads/avatars/default.png';
+            // end get user name
+            // echo "form submitted";
+             $conn = ConnectionManager::get('default');
+             $stmt = $conn->execute('INSERT INTO f_comments (fcm_text, fcm_user_id, fcm_disc_id, fcm_created) VALUES 
+                ("'.$fcm_text.'", "'.$fcm_user_id.'", "'.$fcm_disc_id.'", NOW())
+         ');
+
+            // echo "working";
+            // echo $fcm_text . " <a href='' class='float-end text-red'> Add more reply</a>";
+            echo '
+            <article class=" CommentPost Post Post--by-actor">
+<div>
+    <header class="Post-header">
+        <ul>
+            <li class="item-user">
+                <div class="PostUser">
+                    <h3>
+                        <a href="#">
+                        <img class="Avatar PostUser-avatar" src="'.$dp.'">
+                        <span class="username">
+                            ' .$naam. '
+                        </span>
+                        </a>
+                    </h3>
+                        <ul class="PostUser-badges badges"></ul>
+
+                </div>
+            </li>
+            <li class="item-meta">
+            <div class="Dropdown PostMeta"><a class="Dropdown-toggle" data-toggle="dropdown"><time pubdate="" datetime="2022-02-23T23:52:19+05:30" title="" data-humantime="">Just now</time></a><div class="Dropdown-menu dropdown-menu"><span class="PostMeta-number">Post #1</span> <span class="PostMeta-time"><time pubdate="" datetime="2022-02-23T23:52:19+05:30">Wednesday, February 23, 2022 11:52 PM</time></span> <span class="PostMeta-ip"></span><input class="FormControl PostMeta-permalink"></div></div>
+            </li>
+        </ul>
+    </header>'.$fcm_text.'
+</div>
+</article>
+            ';
+
+            // echo $txt_fname . " form submitted";
+        }
+         $this->viewBuilder()->setLayout('custom_home');
+    }
+    // end add comment
+
+
+    // Close discussion
+    public function closeDisc()
+    {
+        // echo "hello";
+        if($_GET['id'])
+        {
+            // check admin
+            $user_id = $this->request->getSession()->read('user_id');
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT id, user_level FROM users
+            WHERE 
+            id = "'.$user_id.'" ');
+            $user_l = $stmt ->fetchAll('assoc');
+            $user_level = $user_l[0]['user_level'];
+
+            // echo $user_level;
+            if($user_level == 1)
+            {
+                $fd_id = $_GET['id'];
+                $stmt = $conn->execute('UPDATE f_discussions 
+                    SET fd_is_close = 1
+                WHERE 
+                fd_id = "'.$fd_id.'" ');
+
+                $this->Flash->custom_success(__('Discussion closed.'));
+                return $this->redirect(['action' => 'view/'.$fd_id.'']);
+
+            }
+
+            // end check admin
+            
+        }
+        
+        exit;
+    }
+    // end close discussion
+
+    // Delete discussion
+    public function deleteDisc()
+    {
+        // echo "hello";
+        if($_GET['id'])
+        {
+            // check admin
+            $user_id = $this->request->getSession()->read('user_id');
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT id, user_level FROM users
+            WHERE 
+            id = "'.$user_id.'" ');
+            $user_l = $stmt ->fetchAll('assoc');
+            $user_level = $user_l[0]['user_level'];
+
+            // echo $user_level;
+            if($user_level == 1)
+            {
+                $fd_id = $_GET['id'];
+                $stmt = $conn->execute('UPDATE f_discussions 
+                    SET fd_is_delete = 1
+                WHERE 
+                fd_id = "'.$fd_id.'" ');
+
+                $this->Flash->custom_success(__('Discussion deleted.'));
+                return $this->redirect(['action' => 'index']);
+
+            }
+
+            // end check admin
+            
+        }
+        
+        exit;
+    }
+    // end Delete discussion
     
+
 
 }
