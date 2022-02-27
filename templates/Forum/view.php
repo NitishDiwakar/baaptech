@@ -374,11 +374,13 @@ window.onclick = function(event) {
             });
         </script>
 
-        <script type="text/javascript">
-            function submitPoll(id){
-      document.getElementById("submit_comment").disabled = true;
-      setTimeout(function(){document.getElementById("submit_comment").disabled = false;},4000);
-  }
-        </script>
+    <script type="text/javascript">
+        // disable button for 4 seconds after click
+        function submitPoll(id){
+        document.getElementById("submit_comment").disabled = true;
+        setTimeout(function(){document.getElementById("submit_comment").disabled = false;},4000);
+        }
+    </script>
+
     </body>
 </html>
