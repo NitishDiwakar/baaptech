@@ -265,8 +265,8 @@ if($fd_is_close == 0)
             <input type="hidden" value="<?php echo $fcm_disc_id; ?>" name="fcm_disc_id">
             <?php $user_id = $this->request->getSession()->read('user_id'); ?>
             <input type="hidden" value="<?php echo $user_id; ?>" name="fcm_user_id">
-            <textarea id="tx1" name="fcm_text" class="form-control mb-2" placeholder="Write a Reply..."></textarea> 
-<button class="Button Button--primary IndexPage-newDiscussion hasIcon" type="submit" itemclassname="App-primaryControl"><i aria-hidden="true" class="icon fa fa-edit Button-icon"></i><span class="Button-label">Post Reply</span></button>
+            <textarea id="tx1" name="fcm_text" class="form-control mb-2" placeholder="Write a Reply..." minlength="2"></textarea> 
+<button id="submit_comment" class="Button Button--primary IndexPage-newDiscussion hasIcon" type="submit" itemclassname="App-primaryControl" onclick="submitPoll()"><i aria-hidden="true" class="icon fa fa-edit Button-icon"></i><span class="Button-label">Post Reply</span></button>
 <?php // echo $this->Form->button(__('submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
                 <?= $this->Form->end() ?>  
             </div> 
@@ -372,6 +372,13 @@ window.onclick = function(event) {
                     });
                 });
             });
+        </script>
+
+        <script type="text/javascript">
+            function submitPoll(id){
+      document.getElementById("submit_comment").disabled = true;
+      setTimeout(function(){document.getElementById("submit_comment").disabled = false;},4000);
+  }
         </script>
     </body>
 </html>
