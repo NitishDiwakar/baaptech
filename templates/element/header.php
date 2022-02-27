@@ -58,6 +58,15 @@
                                 );
                             ?>
                         </li>
+
+                        <li class="nav-item">
+                            <?php 
+                                echo $this->Html->link(
+                                    'Forum',
+                                    ['controller' => 'Forum', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg']
+                                );
+                            ?>
+                        </li>
                        
                     </ul>
                     <!--  -->
