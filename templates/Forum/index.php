@@ -140,7 +140,7 @@ use Cake\Datasource\ConnectionManager;
 <div class="DiscussionList">
     <?php echo $this->Flash->render() ?>
 <!-- Forum add form -->
-    <div class="forum_add mb-4" id="forum_add">
+    <div class="forum_add mb-4" id="forum_add" style="display: none;">
         <?= $this->Form->create($forumAdd) ?>
                             <!-- Name input-->
                             
