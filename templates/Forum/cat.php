@@ -46,7 +46,16 @@ use Cake\Datasource\ConnectionManager;
                 <!-- n -->
     <div class="row">
         <div class="col-12">
-            <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Forum</h5>
+            <!-- <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Forum</h5> -->
+            <header class="Hero TagHero" style=""><div class="container"><div class="containerNarrow"><h2 class="Hero-title"><i class="icon fa fa-tag"></i> 
+<?php  
+echo $cat_detail[0]['fc_name'];
+?>
+            </h2><div class="Hero-subtitle">
+                <?php  
+                    echo $cat_detail[0]['fc_short_descr'];
+                ?>
+            </div></div></div></header>
         </div>
     </div>
 
@@ -139,6 +148,14 @@ use Cake\Datasource\ConnectionManager;
 
 <div class="DiscussionList">
     <?php echo $this->Flash->render() ?>
+    <!-- n -->
+    <?php  
+        if(empty($all_discussions))
+        {
+            echo "<div class='alert alert-warning'>No discussion posted in this category yet.</div>";
+        }
+    ?>
+    <!-- en -->
 <!-- Forum add form -->
     <div class="forum_add mb-4" id="forum_add">
         <?= $this->Form->create($forumAdd) ?>

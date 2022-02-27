@@ -136,7 +136,11 @@ if(isset($user_level))  {
                 </div></div>
             </li> -->
                                     </ul></nav><div class="DiscussionPage-stream"><div class="PostStream"><div class="PostStream-item" data-index="0" data-time="2022-02-23T18:22:19.000Z" data-number="1" data-id="13" data-type="comment">
-    <article class=" CommentPost Post Post--by-actor"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3><a href="#/username"><img class="Avatar PostUser-avatar" src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt="">
+    <article class=" CommentPost Post Post--by-actor"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3>
+        <?php  
+        $user_id = $discussion[0]['id'];
+        ?>
+        <a href="<?php echo $this->Url->build('/users/view/'.$user_id.'');?>"><img class="Avatar PostUser-avatar" src="<?php echo $this->Url->build('/img/uploads/avatars/default.png');?>" alt="">
 <!-- user online icon -->
 <!-- <span class="UserOnline"><i aria-hidden="true" class="icon fas fa-circle "></i></span> -->
                                         <span class="username">

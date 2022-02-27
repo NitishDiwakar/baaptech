@@ -36,11 +36,55 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
+     
+        /*$user = $this->Users->get($id, [
             'contain' => ['Articles'],
-        ]);
+        ]);*/
+        $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // echo $actual_link; exit;
 
+        // get last segment of url
+        $last_segment = basename(parse_url($url, PHP_URL_PATH));
+        $user_id = $last_segment;
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM users WHERE 
+            is_deleted = 0
+        AND id = "'.$user_id.'"
+         ');
+        $user = $stmt ->fetchAll('assoc');
         $this->set(compact('user'));
+        // print_r($user); exit;
+
+        // get discussions by user
+        $stmt = $conn->execute('SELECT * FROM f_discussions
+            INNER JOIN f_categories ON f_discussions.fd_cat = f_categories.fc_id
+            INNER JOIN users ON f_discussions.fd_user_id = users.id
+            WHERE 
+            f_discussions.fd_is_delete = 0
+            AND users.is_banned = 0 
+            AND users.is_deleted = 0
+            AND users.id = '.$last_segment.' 
+            ORDER BY f_discussions.fd_id DESC
+         ');
+        $all_discussions = $stmt ->fetchAll('assoc');
+        $this->set(compact('all_discussions'));
+        // end get discussions by user
+
+        // Count discussion posted by user
+
+        $stmt = $conn->execute('SELECT COUNT(*) FROM f_discussions
+            WHERE 
+            f_discussions.fd_is_delete = 0
+            AND fd_user_id = '.$last_segment.' 
+         ');
+        $total_discussions = $stmt ->fetchAll('assoc');
+        $this->set(compact('total_discussions'));
+
+        // end Count discussion posted by user
+
+
+        //$this->set(compact('user'));
+        $this->viewBuilder()->setLayout('custom_home');
     }
 
     /**
@@ -358,6 +402,42 @@ class UsersController extends AppController
 
         $this->viewBuilder()->setLayout('custom');
     }   
+
+
+    // Ban user
+    public function banUser()
+    {
+        if($_GET['id'])
+        {
+            // check admin
+            $user_id = $this->request->getSession()->read('user_id');
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT id, user_level FROM users
+            WHERE 
+            id = "'.$user_id.'" ');
+            $user_l = $stmt ->fetchAll('assoc');
+            $user_level = $user_l[0]['user_level'];
+
+            // echo $user_level;
+            if($user_level == 1)
+            {
+                $fd_id = $_GET['id'];
+                $stmt = $conn->execute('UPDATE users 
+                    SET is_banned = 1
+                WHERE 
+                id = "'.$fd_id.'" ');
+
+                $this->Flash->custom_success(__('User banned.'));
+                return $this->redirect(['action' => '/view/'.$fd_id.'']);
+
+            }
+
+            // end check admin
+            
+        }
+        
+        exit;
+    } // end ban user
 
 
 

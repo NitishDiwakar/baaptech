@@ -122,9 +122,25 @@
       
       <td>
 
-          <a title="Delete Category" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure, you want to delete this event?')" href="<?php echo $this->Url->build('/manage/category_delete?id='.$result['fc_id'].' ');?>"><i class="fa fa-trash"></i></a>
+          <a title="Delete Category" class="btn btn-danger btn-sm 
+          <?php  
+          // disable general category deletion
+          if($result['fc_id'] == 1)
+          {
+            echo "disabled";
+          }
+          ?>
+          " onclick="return confirm('Are you sure, you want to delete this event?')" href="<?php echo $this->Url->build('/manage/category_delete?id='.$result['fc_id'].' ');?>"><i class="fa fa-trash"></i></a>
 
-          <a title="Edit Category" class="btn btn-primary btn-sm"  href="<?php echo $this->Url->build('/manage/category_edit?id='.$result['fc_id'].' ');?>"><i class="fa fa-pencil"></i></a>
+          <a title="Edit Category" class="btn btn-primary btn-sm
+          <?php 
+          // disable general category modification
+          if($result['fc_id'] == 1)
+          {
+            echo "disabled";
+          }
+          ?>
+          "  href="<?php echo $this->Url->build('/manage/category_edit?id='.$result['fc_id'].' ');?>"><i class="fa fa-pencil"></i></a>
       </td>
     </tr>
 <?php 

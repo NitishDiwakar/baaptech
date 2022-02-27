@@ -1,6 +1,3 @@
-<?php  
-use Cake\Datasource\ConnectionManager;
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,13 +16,6 @@ use Cake\Datasource\ConnectionManager;
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
 
-           <?= $this->Html->css(['custom']) ?>
-            <?= $this->Html->css(['styles']) ?>
-
-        <style type="text/css">
-            a {text-decoration: none !important;}
-        </style>
-
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -36,127 +26,25 @@ use Cake\Datasource\ConnectionManager;
         
         <!-- App features section-->
         <section id="features">
-            <?php 
-           
-            ?>
             <div class="container px-5">
-                <!-- n -->
-    <!-- <div class="row">
-        <div class="col-12">
-            <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">User</h5>
-        </div>
-    </div> -->
-
-<div class="row">
-    <div col-12>
-        <!-- user profile start -->
-<div class="UserPage">
-    <div class="UserCard Hero UserHero" style="--usercard-bg: rgb(59, 58, 60);">
-        <div class="darkenBackground"><div class="container"><div class="UserCard-profile"><h2 class="UserCard-identity"><a href=""><div class="UserCard-avatar"><img class="Avatar " src="http://localhost/flarum_test/public/assets/avatars/BrlOPDK2mAm72gMn.png" alt=""></div><span class="username">
-            <?php echo $user[0]['Name']; ?>
-        </span></a></h2>
-        
-        <ul class="UserCard-info">
-            <!-- <li class="item-lastSeen">
-            <span class="UserCard-lastSeen"><i aria-hidden="true" class="icon far fa-clock "></i> an hour ago</span>
-            </li> -->
-        <li class="item-joined">
-        Joined 
-        <?php  
-         $created_at = $user[0]['created'];
-         $fd_created = strtotime($created_at);
-         echo get_timeago($fd_created); 
-        ?>
-    </li>
-    <li>
-    <!-- admin action button -->
-<?php  
-    $user_id = $this->request->getSession()->read('user_id');
-    if($user_id !== NULL)
-        {
-            // echo "User is not logged in"; 
-            // Check if type is admin
-            $user_id = $this->request->getSession()->read('user_id');
-            $conn = ConnectionManager::get('default');
-            $stmt = $conn->execute('SELECT id, user_level FROM users
-            WHERE 
-            id = "'.$user_id.'" ');
-            $user_l = $stmt ->fetchAll('assoc');
-            $user_level = $user_l[0]['user_level'];
-            // echo $user_level;
-            
-}    
-?>
-
-<?php  
-if(isset($user_level))  {
-    if($user_level == 1) {
-?>
-<?php  
-    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $last_segment = basename(parse_url($url, PHP_URL_PATH));
-    $user_to_be_ban = $last_segment;
-?>
-<a onclick="return confirm('Are you sure you want to ban this user?')" href="<?php echo $this->Url->build('/users/ban_user?id='.$user_to_be_ban.' ');?>" class="btn btn-danger">Ban this user</a>
-<?php  
-    }
-}
-?>
-        <!-- end admin action button -->    
-    </li>
-
-</ul></div></div></div></div>
-<div class="mt-1"></div>
-<?php echo $this->Flash->render() ?>
-<div class="container">
-        <div class="sideNavContainer">
-            <nav class="sideNav UserPage-nav">
-                <ul class="">
-                    <li class="item-nav"><div class="ButtonGroup Dropdown dropdown App-titleControl Dropdown--select itemCount3"><button class="Dropdown-toggle Button" aria-haspopup="menu" aria-label="Toggle dropdown menu" data-toggle="dropdown"><span class="Button-label">Posts</span><i aria-hidden="true" class="icon fas fa-sort Button-caret"></i></button><ul class="Dropdown-menu dropdown-menu "><li class="item-posts active"><a class="hasIcon" href="#" active="true"><i aria-hidden="true" class="icon far fa-comment Button-icon"></i><span class="Button-label">Discussions <span class="Button-badge">
-                    <!-- 11 -->
-                    <?php echo $total_discussions[0]['COUNT(*)'] ?>
-                </span></span></a></li>
-                        <!-- <li class="item-discussions"><a class="hasIcon" href="/flarum_test/public/u/john/discussions" active="false"><i aria-hidden="true" class="icon fas fa-bars Button-icon"></i><span class="Button-label">Discussions <span class="Button-badge">2</span></span></a>
-                        </li>
-                        <li class="item-mentions"><a class="hasIcon" href="/flarum_test/public/u/john/mentions" name="mentions" active="false"><i aria-hidden="true" class="icon fas fa-at Button-icon"></i><span class="Button-label">Mentions</span></a></li> -->
-                    </ul></div>
-                </li>
-                </ul>
-            </nav>
-                    <div class="sideNavOffset UserPage-content">
-
-<?php  
-// print_r($all_discussions);
-foreach ($all_discussions as $all_discussion){
-    $discussion_id = $all_discussion['fd_id'];
-?>
-                        <div class="PostsUserPage"><ul class="PostsUserPage-list"><li><div class="PostsUserPage-discussion">
-                        <!-- In  -->
-                        <a href="<?php echo $this->Url->build('/forum/view/'.$discussion_id.'');?>"><?php echo $all_discussion['fd_title']; ?></a></div><article class=" CommentPost Post"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3><a href=""><img class="Avatar PostUser-avatar" src="http://localhost/flarum_test/public/assets/avatars/BrlOPDK2mAm72gMn.png" alt=""><span class="username"><?php echo $all_discussion['Name']; ?></span></a></h3><ul class="PostUser-badges badges"></ul></div></li><li class="item-meta"><div class="Dropdown PostMeta"><a class="Dropdown-toggle" data-toggle="dropdown"><time pubdate="" datetime="2022-02-24T00:03:06+05:30" title="Thursday, February 24, 2022 12:03 AM" data-humantime="">
-<?php 
-// echo $all_discussion['fd_created']; 
-$created_at = $all_discussion['fd_created'];
-$fd_created = strtotime($created_at);
-echo get_timeago($fd_created);
-?>
-                        </time></a><div class="Dropdown-menu dropdown-menu"><span class="PostMeta-number">Post #5</span> <span class="PostMeta-time"><time pubdate="" datetime="2022-02-24T00:03:06+05:30">Thursday, February 24, 2022 12:03 AM</time></span> <span class="PostMeta-ip"></span><input class="FormControl PostMeta-permalink"></div></div></li></ul></header><div class="Post-body"><p>
-                        <!-- <a href="http://localhost/flarum_test/public/d/5/2" class="PostMention" data-id="14">john</a> -->
-                         <?php echo $all_discussion['fd_post']; ?></p></div>
-
-                        <!-- <aside class="Post-actions"><ul><li class="item-reply"><button class="Button Button--link" type="button"><span class="Button-label">Reply</span></button></li></ul></aside>
-                        <footer class="Post-footer"></footer> -->
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
+                        <div class="container-fluid px-5">
+                            <!-- Some text and donation button -->
+                        </div>
                     </div>
-            <ul class="Dropdown-menu PostMention-preview fade"></ul></article><div class="Post-quoteButtonContainer"></div></li>
-            </ul>
-        <div class="PostsUserPage-loadMore"></div>
-        </div>
-<?php } ?>
+                    <div class="col-lg-4 order-lg-0">
+                        <!-- Features section device mockup-->
+                        <div class="features-device-mockup">
+                            <!-- image related to donation here -->
+                        </div>
+                    </div>
+                </div>
 
-
-    </div></div></div></div>
-        <!-- user profile end -->
-    </div>
-</div> <!-- End row -->
+                <!-- n -->
+                <div class="row">
+                    <div class="col-md-12">a</div>
+                </div>
                 <!-- en -->
             </div>
         </section>

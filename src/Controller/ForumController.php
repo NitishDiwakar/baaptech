@@ -90,6 +90,14 @@ class ForumController extends AppController
 
     // Get all discussions
         $conn = ConnectionManager::get('default');
+        if(isset($_GET['sort']))
+        {
+            $sort = $_GET['sort'];
+        }
+        if(!isset($_GET['sort']))
+        {
+            $sort = 'DESC';
+        }
         $stmt = $conn->execute('SELECT * FROM f_discussions
             INNER JOIN f_categories ON f_discussions.fd_cat = f_categories.fc_id
             INNER JOIN users ON f_discussions.fd_user_id = users.id
@@ -97,7 +105,7 @@ class ForumController extends AppController
             f_discussions.fd_is_delete = 0
             AND users.is_banned = 0 
             AND users.is_deleted = 0 
-            ORDER BY f_discussions.fd_id DESC
+            ORDER BY f_discussions.fd_id '.$sort.'
          ');
         $all_discussions = $stmt ->fetchAll('assoc');
         $this->set(compact('all_discussions'));
@@ -226,6 +234,8 @@ class ForumController extends AppController
              ');
         $categories = $stmt ->fetchAll('assoc');
         $this->set(compact('categories'));
+
+        $this->viewBuilder()->setLayout('custom_home');
 
     }
     // End get forum categories
@@ -370,6 +380,134 @@ class ForumController extends AppController
         exit;
     }
     // end Delete discussion
+
+    // Start cat
+    public function cat()
+    {
+
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM events WHERE is_deleted = 0
+            ORDER BY id DESC
+             ');
+            $results = $stmt ->fetchAll('assoc');
+            $this->set(compact('results'));
+
+            // Get Categories
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM f_categories WHERE fc_is_deleted = 0 
+                AND fc_id != 1 
+                ORDER BY fc_name
+                 ');
+            $categories = $stmt ->fetchAll('assoc');
+            $this->set(compact('categories'));
+            // end get categories
+
+            // forum post
+            if ($this->request->is('post'))
+            {
+
+                // check user auth
+                $user_id = $this->request->getSession()->read('user_id');
+                    // Check if user is logged in
+                   if($user_id == NULL)
+                    {
+                        echo "Please login to add discussion"; exit;
+                    }
+                    // Check if user is banned
+                    if($user_id !== NULL)
+                    {
+                        $conn = ConnectionManager::get('default');
+                        $stmt = $conn->execute('SELECT id, is_banned FROM users WHERE id = "'.$user_id.'" ');
+                        $user = $stmt ->fetchAll('assoc');
+                        // print_r($user); exit;
+                        $banned_status = $user[0]['is_banned'];
+                        if($banned_status == 1)
+                        {
+                            $this->Flash->custom_error(__('You are banned from posting new discussions.'));
+
+                            return $this->redirect(['action' => 'index']);
+                        }
+                    }
+                // end check user auth
+                // Get form data
+                $cat = $this->request->getData('cat');
+                $fd_title = $this->request->getData('fd_title');
+                $fd_post = $this->request->getData('fd_post');
+                // echo $fd_title; exit; 
+                /*echo $cat . "<br>"; 
+                echo $fd_title . "<br>"; 
+                echo $fd_post; exit; */
+
+                $conn = ConnectionManager::get('default');
+                $stmt = $conn->execute('
+                INSERT INTO f_discussions (`fd_user_id`,`fd_title`, `fd_cat`, `fd_post`, `fd_created`)
+                VALUES 
+                ("'.$user_id.'", "'.$fd_title.'", "'.$cat.'", "'.$fd_post.'", NOW())
+                ');
+            $this->Flash->custom_success(__('Discussion Posted.'));
+            return $this->redirect(['action' => 'index']);
+
+
+            }
+            // end forum post
+
+    // Get all discussions
+        $conn = ConnectionManager::get('default');
+        if(isset($_GET['sort']))
+        {
+            $sort = $_GET['sort'];
+        }
+        if(!isset($_GET['sort']))
+        {
+            $sort = 'DESC';
+        }
+        //n
+        $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // echo $actual_link; exit;
+
+        // get last segment of url
+        $last_segment = basename(parse_url($url, PHP_URL_PATH));
+        //en
+        $stmt = $conn->execute('SELECT * FROM f_discussions
+            INNER JOIN f_categories ON f_discussions.fd_cat = f_categories.fc_id
+            INNER JOIN users ON f_discussions.fd_user_id = users.id
+            WHERE 
+            f_discussions.fd_is_delete = 0
+            AND users.is_banned = 0 
+            AND users.is_deleted = 0
+            AND f_categories.fc_id = '.$last_segment.' 
+            ORDER BY f_discussions.fd_id '.$sort.'
+         ');
+        $all_discussions = $stmt ->fetchAll('assoc');
+        $this->set(compact('all_discussions'));
+
+        // Get category name and description by last segment
+        $stmt = $conn->execute('SELECT * FROM f_categories
+            WHERE 
+            fc_id = '.$last_segment.'
+         ');
+        $cat_detail = $stmt ->fetchAll('assoc');
+        $this->set(compact('cat_detail'));
+        // end Get category name and description by last segment
+         
+    // endGet discussions
+
+    // get user type
+
+       /* $user_id = $this->request->getSession()->read('user_id');
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT id, user_level FROM users
+            WHERE 
+            id = "'.$user_id.'"');
+        $user_level = $stmt ->fetchAll('assoc');
+        $this->set(compact('user_level'));*/
+    // end get user type
+
+        $this->viewBuilder()->setLayout('custom_home');
+       
+    } // end cat()
+
+    
     
 
 

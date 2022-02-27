@@ -18,13 +18,14 @@ use Cake\Datasource\ConnectionManager;
         <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
+    <?= $this->Html->css(['custom']) ?>
+    <?= $this->Html->css(['styles']) ?>
 
-           <?= $this->Html->css(['custom']) ?>
-            <?= $this->Html->css(['styles']) ?>
-
-        <style type="text/css">
-            a {text-decoration: none !important;}
-        </style>
+<style type="text/css">
+    a {text-decoration: none !important;}
+</style>
+     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
     </head>
     <body id="page-top">
@@ -41,127 +42,95 @@ use Cake\Datasource\ConnectionManager;
             ?>
             <div class="container px-5">
                 <!-- n -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-12">
-            <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">User</h5>
+            <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Categories</h5>
         </div>
-    </div> -->
+    </div>
 
 <div class="row">
-    <div col-12>
-        <!-- user profile start -->
-<div class="UserPage">
-    <div class="UserCard Hero UserHero" style="--usercard-bg: rgb(59, 58, 60);">
-        <div class="darkenBackground"><div class="container"><div class="UserCard-profile"><h2 class="UserCard-identity"><a href=""><div class="UserCard-avatar"><img class="Avatar " src="http://localhost/flarum_test/public/assets/avatars/BrlOPDK2mAm72gMn.png" alt=""></div><span class="username">
-            <?php echo $user[0]['Name']; ?>
-        </span></a></h2>
-        
-        <ul class="UserCard-info">
-            <!-- <li class="item-lastSeen">
-            <span class="UserCard-lastSeen"><i aria-hidden="true" class="icon far fa-clock "></i> an hour ago</span>
-            </li> -->
-        <li class="item-joined">
-        Joined 
-        <?php  
-         $created_at = $user[0]['created'];
-         $fd_created = strtotime($created_at);
-         echo get_timeago($fd_created); 
-        ?>
-    </li>
-    <li>
-    <!-- admin action button -->
-<?php  
-    $user_id = $this->request->getSession()->read('user_id');
-    if($user_id !== NULL)
-        {
-            // echo "User is not logged in"; 
-            // Check if type is admin
-            $user_id = $this->request->getSession()->read('user_id');
-            $conn = ConnectionManager::get('default');
-            $stmt = $conn->execute('SELECT id, user_level FROM users
-            WHERE 
-            id = "'.$user_id.'" ');
-            $user_l = $stmt ->fetchAll('assoc');
-            $user_level = $user_l[0]['user_level'];
-            // echo $user_level;
-            
-}    
-?>
-
-<?php  
-if(isset($user_level))  {
-    if($user_level == 1) {
-?>
-<?php  
-    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $last_segment = basename(parse_url($url, PHP_URL_PATH));
-    $user_to_be_ban = $last_segment;
-?>
-<a onclick="return confirm('Are you sure you want to ban this user?')" href="<?php echo $this->Url->build('/users/ban_user?id='.$user_to_be_ban.' ');?>" class="btn btn-danger">Ban this user</a>
-<?php  
-    }
-}
-?>
-        <!-- end admin action button -->    
-    </li>
-
-</ul></div></div></div></div>
-<div class="mt-1"></div>
-<?php echo $this->Flash->render() ?>
-<div class="container">
-        <div class="sideNavContainer">
-            <nav class="sideNav UserPage-nav">
-                <ul class="">
-                    <li class="item-nav"><div class="ButtonGroup Dropdown dropdown App-titleControl Dropdown--select itemCount3"><button class="Dropdown-toggle Button" aria-haspopup="menu" aria-label="Toggle dropdown menu" data-toggle="dropdown"><span class="Button-label">Posts</span><i aria-hidden="true" class="icon fas fa-sort Button-caret"></i></button><ul class="Dropdown-menu dropdown-menu "><li class="item-posts active"><a class="hasIcon" href="#" active="true"><i aria-hidden="true" class="icon far fa-comment Button-icon"></i><span class="Button-label">Discussions <span class="Button-badge">
-                    <!-- 11 -->
-                    <?php echo $total_discussions[0]['COUNT(*)'] ?>
-                </span></span></a></li>
-                        <!-- <li class="item-discussions"><a class="hasIcon" href="/flarum_test/public/u/john/discussions" active="false"><i aria-hidden="true" class="icon fas fa-bars Button-icon"></i><span class="Button-label">Discussions <span class="Button-badge">2</span></span></a>
-                        </li>
-                        <li class="item-mentions"><a class="hasIcon" href="/flarum_test/public/u/john/mentions" name="mentions" active="false"><i aria-hidden="true" class="icon fas fa-at Button-icon"></i><span class="Button-label">Mentions</span></a></li> -->
-                    </ul></div>
-                </li>
-                </ul>
-            </nav>
-                    <div class="sideNavOffset UserPage-content">
-
-<?php  
-// print_r($all_discussions);
-foreach ($all_discussions as $all_discussion){
-    $discussion_id = $all_discussion['fd_id'];
-?>
-                        <div class="PostsUserPage"><ul class="PostsUserPage-list"><li><div class="PostsUserPage-discussion">
-                        <!-- In  -->
-                        <a href="<?php echo $this->Url->build('/forum/view/'.$discussion_id.'');?>"><?php echo $all_discussion['fd_title']; ?></a></div><article class=" CommentPost Post"><div><header class="Post-header"><ul><li class="item-user"><div class="PostUser"><h3><a href=""><img class="Avatar PostUser-avatar" src="http://localhost/flarum_test/public/assets/avatars/BrlOPDK2mAm72gMn.png" alt=""><span class="username"><?php echo $all_discussion['Name']; ?></span></a></h3><ul class="PostUser-badges badges"></ul></div></li><li class="item-meta"><div class="Dropdown PostMeta"><a class="Dropdown-toggle" data-toggle="dropdown"><time pubdate="" datetime="2022-02-24T00:03:06+05:30" title="Thursday, February 24, 2022 12:03 AM" data-humantime="">
-<?php 
-// echo $all_discussion['fd_created']; 
-$created_at = $all_discussion['fd_created'];
-$fd_created = strtotime($created_at);
-echo get_timeago($fd_created);
-?>
-                        </time></a><div class="Dropdown-menu dropdown-menu"><span class="PostMeta-number">Post #5</span> <span class="PostMeta-time"><time pubdate="" datetime="2022-02-24T00:03:06+05:30">Thursday, February 24, 2022 12:03 AM</time></span> <span class="PostMeta-ip"></span><input class="FormControl PostMeta-permalink"></div></div></li></ul></header><div class="Post-body"><p>
-                        <!-- <a href="http://localhost/flarum_test/public/d/5/2" class="PostMention" data-id="14">john</a> -->
-                         <?php echo $all_discussion['fd_post']; ?></p></div>
-
-                        <!-- <aside class="Post-actions"><ul><li class="item-reply"><button class="Button Button--link" type="button"><span class="Button-label">Reply</span></button></li></ul></aside>
-                        <footer class="Post-footer"></footer> -->
-                    </div>
-            <ul class="Dropdown-menu PostMention-preview fade"></ul></article><div class="Post-quoteButtonContainer"></div></li>
-            </ul>
-        <div class="PostsUserPage-loadMore"></div>
-        </div>
-<?php } ?>
-
-
-    </div></div></div></div>
-        <!-- user profile end -->
-    </div>
+    
 </div> <!-- End row -->
+    <!-- start page -->
+    <div id="content"><div class="TagsPage"><header class="Hero WelcomeHero" style="display: none;"><div class="container"><button class="Hero-close Button Button--icon Button--link hasIcon" type="button" aria-label="Hide welcome message"><i aria-hidden="true" class="icon fas fa-times Button-icon"></i><span class="Button-label"></span></button></div></header><div class="container">
+
+        <!-- <nav class="TagsPage-nav IndexPage-nav sideNav"><ul><li class="item-newDiscussion App-primaryControl"><button class="Button Button--primary IndexPage-newDiscussion hasIcon" type="button" itemclassname="App-primaryControl"><i aria-hidden="true" class="icon fas fa-edit Button-icon"></i>
+
+        <span class="Button-label">Start a Discussion</span></button></li><li class="item-nav"><div class="ButtonGroup Dropdown dropdown App-titleControl Dropdown--select itemCount2"><button class="Dropdown-toggle Button" aria-haspopup="menu" aria-label="Toggle navigation dropdown menu" data-toggle="dropdown"><span class="Button-label">Tags</span><i aria-hidden="true" class="icon fas fa-sort Button-caret"></i></button><ul class="Dropdown-menu dropdown-menu "><li class="item-allDiscussions"><a class="hasIcon" href="/flarum_test/public/" active="false"><i aria-hidden="true" class="icon far fa-comments Button-icon"></i><span class="Button-label">All Discussions</span></a></li>
+            <li class="item-tags active"><a class="hasIcon" href="/flarum_test/public/tags" active="true"><i aria-hidden="true" class="icon fas fa-th-large Button-icon"></i><span class="Button-label">Tags</span></a>
+        </li></ul>
+    </div></li></ul></nav> -->
+
+    <div class="TagsPage-content sideNavOffset">
+
+        <ul class="TagTiles">
+
+        <li class="TagTile colored" style="--tag-bg: #888;"><a class="TagTile-info" href="<?php echo $this->Url->build('/forum/cat/1');?>"><h3 class="TagTile-name">General</h3><p class="TagTile-description"></p><div class="TagTile-children"></div></a><span class="TagTile-lastPostedDiscussion"></span></li>
+
+        <?php  
+            foreach($categories as $category) {
+                $cat_id = $category['fc_id'];
+                if($cat_id == 1) { continue; }
+        ?>
+        <li class="TagTile " style="">
+        <a class="TagTile-info" href="<?php echo $this->Url->build('/forum/cat/'.$cat_id.'');?>"><i class="icon fa fa-tag"></i>
+        <h3 class="TagTile-name">
+            <?php  
+                echo $category['fc_name'];
+            ?>
+        </h3><p class="TagTile-description">
+            <?= $category['fc_short_descr'] ?>
+        </p><div class="TagTile-children"></div></a>
+
+        <?php 
+        // echo $category['fc_id']; 
+        $cat_id = $category['fc_id'];
+        // get last discussion from above id
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM f_discussions WHERE fd_cat = "'.$cat_id.'"
+            ORDER by fd_id DESC LIMIT 1
+             ');
+        $last_post = $stmt ->fetchAll('assoc');
+        // print_r($last_post);
+
+        ?>
+        <?php  
+        if(!empty($last_post)) {
+            $last_post_id = $last_post[0]['fd_id'];
+        ?>
+        <a class="TagTile-lastPostedDiscussion" href="<?php echo $this->Url->build('/forum/view/'.$last_post_id.'');?>">
+            <span class="TagTile-lastPostedDiscussion-title">
+                <?php  
+                   // echo $last_post[0]['fd_title'];
+                    
+                        echo $last_post[0]['fd_title'];
+                ?>
+            </span><time pubdate="" datetime="2022-02-24T00:03:06+05:30" title="Thursday, February 24, 2022 12:03 AM" data-humantime="">
+                <?php  
+                    $created_at = $last_post[0]['fd_created'];
+                    $fd_created = strtotime($created_at);
+                    echo get_timeago($fd_created);
+                ?>
+            </time></a>
+        <?php } ?>
+
+        </li>
+        <?php } ?>
+
+
+        <!-- <li class="TagTile " style=""><a class="TagTile-info" href="/flarum_test/public/t/tag-2"><i class="icon fa fa-tag"></i><h3 class="TagTile-name">tag_2</h3><p class="TagTile-description">Sample tag 2</p><div class="TagTile-children"></div></a><a class="TagTile-lastPostedDiscussion" href="/flarum_test/public/d/4-it-is-sunday-today"><span class="TagTile-lastPostedDiscussion-title">It is sunday today</span><time pubdate="" datetime="2022-02-20T20:29:34+05:30" title="Sunday, February 20, 2022 8:29 PM" data-humantime="">7 days ago</time></a></li> -->
+
+        <!-- <li class="TagTile " style=""><a class="TagTile-info" href="/flarum_test/public/t/tag-3"><i class="icon fa fa-tag"></i><h3 class="TagTile-name">tag_3</h3><p class="TagTile-description">description of tag</p><div class="TagTile-children"></div></a><span class="TagTile-lastPostedDiscussion"></span></li> -->
+
+    </ul></div></div></div></div>
+    <!-- end page -->
                 <!-- en -->
             </div>
         </section>
         <!-- Basic features section-->
+        <!-- test temp -->
         
+        <!-- end test temp -->
         <!-- Call to action section-->
         
         <!-- App badge section-->
@@ -251,5 +220,32 @@ echo get_timeago($fd_created);
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
+         <script type="text/javascript">
+            /*$(function() {
+                // Code here
+                // ('.forum_add'). hide(); 
+                $('#forum_add'). hide(); 
+            });
+*/
+            $( document ).ready(function() {
+                // console.log( "ready!" );
+                $('#forum_add'). hide();
+
+                $("#show1").click(function(){
+                    $("#forum_add").show();
+                  });
+
+                $("#hide1").click(function(){
+                    $("#forum_add").hide();
+                  });
+
+                $("#hide2").click(function(){
+                    $("#forum_add").hide();
+                  });
+            });
+        </script>
+        <script>
+                CKEDITOR.replace('editor1');
+        </script>
     </body>
 </html>
