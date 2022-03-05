@@ -94,6 +94,7 @@ and display it.
             </div>
         </section>
         <!-- Footer-->
+        <?= $this->element('suggestion') ?>
         <?= $this->element('footer') ?>
         <!-- Feedback Modal-->
         <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">

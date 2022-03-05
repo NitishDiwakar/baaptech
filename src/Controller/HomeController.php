@@ -40,6 +40,35 @@ class HomeController extends AppController
     
 
     // Login
+
+    // send sugg start
+    public function sendsug()
+    {
+ 
+        if ($this->request->is('post')) 
+        {
+            // echo "test"; exit;
+            $name = $this->request->getData('name');
+            $message = $this->request->getData('msg');
+
+            
+            // echo "form submitted";
+             $conn = ConnectionManager::get('default');
+             $stmt = $conn->execute('INSERT INTO suggestions (name, message, created) VALUES 
+                ("'.$name.'", "'.$message.'", NOW())
+         ');
+
+            // echo "working";
+            // echo $fcm_text . " <a href='' class='float-end text-red'> Add more reply</a>";
+            echo '<div class="text-success mb-3">Thanks for your suggestion</div>';
+            
+            // echo $txt_fname . " form submitted";
+        }
+
+         $this->viewBuilder()->setLayout('custom_home');
+        // exit;
+    }
+    // send sugg end
     
 
 }

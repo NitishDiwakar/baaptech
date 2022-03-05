@@ -180,6 +180,7 @@ BAAP token is listed on pancake swap, our smart contract address is
             </div>
         </section>
         <!-- Footer-->
+        <?= $this->element('suggestion') ?>
         <?= $this->element('footer') ?>
         <!-- Feedback Modal-->
         <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
