@@ -124,7 +124,7 @@ function closeForm() {
 </script>
 
     <script type="text/javascript">
-            $(document).ready(function() {  
+            // $(document).ready(function() {  
                 
                 // submit form using $.ajax() method
                 
@@ -150,7 +150,7 @@ function closeForm() {
                         alert('Unable to send suggestion ...');    
                     });
                 });
-            });
+            // }); // end document ready
         </script>
 
         <script type="text/javascript">
