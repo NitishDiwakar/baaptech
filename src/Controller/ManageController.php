@@ -819,6 +819,61 @@ public function groups()
 
     } 
     // End Edit category
+
+    // suggestions
+    public function suggestions()
+    {
+        // admin verify
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        $conn = ConnectionManager::get('default');
+        $stmt = $conn->execute('SELECT * FROM suggestions WHERE 
+            is_deleted = 0
+            ORDER BY id DESC
+         ');
+        $results = $stmt ->fetchAll('assoc');
+        $this->set(compact('results'));
+        $this->viewBuilder()->setLayout('custom_manage');
+       
+    }
+    // suggestions end
+
+    // delete suggestion
+    public function suggestionsDelete()
+    {
+        // Verify admin
+        if($this->request->getSession()->read('admin_id') === NULL)
+        {
+            // echo "admin id is not set";
+           return $this->redirect(['controller' => 'manage', 'action' => 'login']);
+        }
+
+        // echo $id;
+        $admin_id = $this->request->getSession()->read('admin_id');
+        if(isset($admin_id))
+        {
+            $s_id = $_GET['id'];
+            // echo $user_id; exit;
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('UPDATE suggestions 
+                    SET is_deleted = 1
+                    WHERE 
+                    id = "'.$s_id.'" 
+                    ');
+
+                 $this->Flash->custom_success(__('Suggestion Deleted. '));
+                 return $this->redirect(['action' => 'suggestions']);
+
+
+        }
+
+        
+    }
+    // delete suggestion end
     
 
 }

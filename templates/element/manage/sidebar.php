@@ -89,6 +89,14 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="<?php echo $this->Url->build('/manage/suggestions');?>" >
+                    <!-- <i class="fas fa-fw fa-folder"></i> -->
+                    <i class="fa fa-message"></i>
+                    <span>Suggestions</span>
+                </a>
+            </li>
+
             <!-- n -->
             <div class="sidebar-heading">
                 Forum
