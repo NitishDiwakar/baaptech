@@ -50,12 +50,13 @@ class HomeController extends AppController
             // echo "test"; exit;
             $name = $this->request->getData('name');
             $message = $this->request->getData('msg');
+            $ip = $_SERVER['REMOTE_ADDR'];
 
             
             // echo "form submitted";
              $conn = ConnectionManager::get('default');
-             $stmt = $conn->execute('INSERT INTO suggestions (name, message, created) VALUES 
-                ("'.$name.'", "'.$message.'", NOW())
+             $stmt = $conn->execute('INSERT INTO suggestions (name, message, sender_ip, created) VALUES 
+                ("'.$name.'", "'.$message.'", "'.$ip.'", NOW())
          ');
 
             // echo "working";
