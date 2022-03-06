@@ -45,7 +45,9 @@
                 <div class="row">
                     <div class="col-md-3">
                         <!-- User sidebar -->
-                        <span>Support us by donation</span>
+                        <div  class="text-white bg-gradient-primary-to-secondary p-2">
+                            <span>Support us by donation</span>
+                        </div>
                         <img src="<?php echo $this->Url->build('/webroot/img/image_upi.jpg');?>" class="img-fluid" >
                         <!-- <a href="#">Donate</a>  -->
                         <br>
