@@ -86,7 +86,8 @@
                             <!-- Some text and donation button -->
    <?= $this->Form->create($user) ?>
                             
- <legend><?= __('Signup') ?></legend>
+ <!-- <legend><?= __('Signup') ?></legend> -->
+ <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Signup</h5>
     <?php
         echo $this->Form->control('Name', ['class' => 'form-control']);
         // echo $this->Form->control('user_name', ['class' => 'form-control', 'required', 'id' => 'username']); ?>  
@@ -96,17 +97,22 @@
         echo $this->Form->control('password', ['class' => 'form-control']);
     ?>
                             <br>
-                            <div class="d-grid">
-                                <?= $this->Form->button(__('Submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
+                            <div class="row">
+                                <div class="col-6">
+                                    <?= $this->Form->button(__('Signup'),['class'=>'btn btn-primary rounded-pill btn-lg', 'style' => 'width: 100%']) ?>
+                                </div>
+                                <div class="col-6">
+                                    <a href="login" class="btn btn-secondary rounded-pill btn-lg" style="width: 100%">Login</a>
+                                </div>
                             </div>
                             <?= $this->Form->end() ?>
                             <div class="row">
                             <div class="col-sm-6">
                                 <?php 
-                                echo $this->Html->link(
+                                /*echo $this->Html->link(
                                     'Login',
                                     ['controller' => 'Users', 'action' => 'login', '_full' => true], ['class' => 'nav-link me-lg']
-                                );
+                                );*/
                                 ?>
                             </div>
                             <div class="col-sm-6">

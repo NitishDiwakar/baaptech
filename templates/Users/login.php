@@ -48,7 +48,8 @@
                             <div class="form-floating mb-3">
                                 <!-- <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" /> -->
                                 <?php echo $this->Flash->render() ?>
-                                <legend><?= __('Login') ?></legend>
+                                <!-- <legend><?= __('Login') ?></legend> -->
+                                <h5 class="text-white text-center bg-gradient-primary-to-secondary p-2">Login</h5>
                                  
                                 <?php  echo $this->Form->control('email', ['class' => 'form-control']); ?>
                                 <!-- <label for="email">Email address</label> -->
@@ -76,9 +77,14 @@
                             
 
                             <!-- Submit Button-->
-                            <div class="d-grid">
+                            <div class="row">
                                 <!-- <button class="btn btn-primary rounded-pill btn-lg disabled" id="submitButton" type="submit">Submit</button> -->
-                                 <?= $this->Form->button(__('login'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
+                                 <div class="col-6">
+                                     <?= $this->Form->button(__('Login'),['class'=>'btn btn-primary rounded-pill btn-lg', 'style' => 'width: 100%']) ?>
+                                 </div>
+                                 <div class="col-6">
+                                     <a href="signup" class="btn btn-secondary rounded-pill btn-lg" style="width: 100%">Signup</a>
+                                 </div>
                             </div>
                         <!-- </form> -->
                         <?= $this->Form->end() ?>
@@ -93,10 +99,10 @@
                             </div>
                             <div class="col-sm-6">
                                 <?php 
-                                echo $this->Html->link(
+                                /*echo $this->Html->link(
                                     'Register',
                                     ['controller' => '/', 'action' => 'signup', '_full' => true], ['class' => 'nav-link me-lg']
-                                );
+                                );*/
                                 ?>
                             </div>
                         </div>
