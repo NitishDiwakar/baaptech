@@ -89,7 +89,7 @@ use Cake\Datasource\ConnectionManager;
         {
             $category_id = $category['fc_id'];
     ?>
-    <li class="item-tag2"><a class="TagLinkButton hasIcon" href="<?php echo $this->Url->build('/forum/cat/'.$category_id.'');?>" style="" title="Sample tag 1"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label"><?php echo $category['fc_name'] ?></span></a></li>
+    <li class="item-tag2"><a class="TagLinkButton hasIcon" href="<?php echo $this->Url->build('/forum/cat/'.$category_id.'');?>" style="" title="<?php echo $category['fc_short_descr']; ?>"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label"><?php echo $category['fc_name'] ?></span></a></li>
     <?php  } ?>
     <!-- <li class="item-tag3"><a class="TagLinkButton hasIcon" href="#/flarum_test/public/t/tag-2" style="" title="Sample tag 2"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label">tag_2</span></a></li>
     <li class="item-tag4"><a class="TagLinkButton hasIcon" href="#/flarum_test/public/t/tag-3" style="" title="description of tag"><i class="Button-icon icon fa fa-tag" style=""></i><span class="Button-label">tag_3</span></a></li> -->

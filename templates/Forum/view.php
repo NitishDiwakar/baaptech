@@ -62,8 +62,10 @@ use Cake\Datasource\ConnectionManager;
 
 <!-- Following badge -->
 <!-- <div class="Badge Badge--following" style="" title="" aria-label="Following" data-original-title="Following"><i aria-hidden="true" class="icon fas fa-star Badge-icon"></i></div> -->
-
-                        </li></ul></li><li class="item-tags"><span class="TagsLabel "><a style="" class="TagLabel " title="Sample tag 1" href="#/flarum_test/public/t/tag-1"><span class="TagLabel-text"><i class="icon fa fa-tag"></i> <?php echo $discussion[0]['fc_name']; ?></span></a></span></li><li class="item-title"><h2 class="DiscussionHero-title"><?php echo $discussion[0]['fd_title']; ?></h2></li></ul></div></header>
+<?php  
+$c_id = $discussion[0]['fc_id'];
+?>
+                        </li></ul></li><li class="item-tags"><span class="TagsLabel "><a style="" class="TagLabel " title="<?php echo $discussion[0]['fd_title']; ?>" href="<?php echo $this->Url->build('/forum/cat/'.$c_id.'');?>"><span class="TagLabel-text"><i class="icon fa fa-tag"></i> <?php echo $discussion[0]['fc_name']; ?></span></a></span></li><li class="item-title"><h2 class="DiscussionHero-title"><?php echo $discussion[0]['fd_title']; ?></h2></li></ul></div></header>
                         <div class="container">
                             <nav class="DiscussionPage-nav">
                             <ul>
@@ -266,7 +268,7 @@ if($fd_is_close == 0)
             <?php $user_id = $this->request->getSession()->read('user_id'); ?>
             <input type="hidden" value="<?php echo $user_id; ?>" name="fcm_user_id">
             <textarea id="tx1" name="fcm_text" class="form-control mb-2" placeholder="Write a Reply..." minlength="2"></textarea> 
-<button id="submit_comment" class="Button Button--primary IndexPage-newDiscussion hasIcon" type="submit" itemclassname="App-primaryControl" onclick="submitPoll()"><i aria-hidden="true" class="icon fa fa-edit Button-icon"></i><span class="Button-label">Post Reply</span></button>
+<button id="submit_comment" class="Button Button--primary IndexPage-newDiscussion hasIcon" type="submit" itemclassname="App-primaryControl" onclick="submitPoll3()"><i aria-hidden="true" class="icon fa fa-edit Button-icon"></i><span class="Button-label">Post Reply</span></button>
 <?php // echo $this->Form->button(__('submit'),['class'=>'btn btn-primary rounded-pill btn-lg']) ?>
                 <?= $this->Form->end() ?>  
             </div> 
