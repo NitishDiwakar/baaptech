@@ -31,9 +31,9 @@ class ContactUsController extends AppController
 
             $conn = ConnectionManager::get('default');
             $stmt = $conn->execute('
-                INSERT INTO contact_us (`first_name`,`last_name`, `email`, `mobile`, `subject`, `message`)
+                INSERT INTO contact_us (`first_name`,`last_name`, `email`, `mobile`, `subject`, `message`, `created`)
                 VALUES 
-                ("'.$first_name.'", "'.$last_name.'", "'.$email.'", "'.$mobile.'", "'.$subject.'", "'.$message.'")
+                ("'.$first_name.'", "'.$last_name.'", "'.$email.'", "'.$mobile.'", "'.$subject.'", "'.$message.'", NOW())
                 ');
             $this->Flash->custom_success(__('Your message has submitted.'));
 
