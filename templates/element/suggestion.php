@@ -85,7 +85,7 @@ bottom:0;">
 Send Suggestion</button>
  <div class="chat-popup" id="myForm" style="display: none; position:fixed;
 right:0;
-bottom:0;">
+bottom:0; z-index: 999;">
   <!-- <form action="" class="form-container" id="sug-form" method="post"> -->
 
     <?= $this->Form->create($sugg,['class' => 'form-container', 'id' => 'sug-form']) ?>
@@ -98,7 +98,7 @@ bottom:0;">
     <textarea placeholder="Your suggestion.." name="msg" id="tx1" required></textarea>
 
     <div id="hoo1"></div>
-    <button type="submit" class="btn" id="submit_comment" onclick="disableMe()">Send</button>
+    <button type="submit" class="btn" id="submit_comment" onclick="disableMe3()">Send</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   <!-- </form> -->
   <?= $this->Form->end() ?>
