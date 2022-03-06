@@ -89,7 +89,7 @@ bottom:0;">
   <!-- <form action="" class="form-container" id="sug-form" method="post"> -->
 
     <?= $this->Form->create($sugg,['class' => 'form-container', 'id' => 'sug-form']) ?>
-    <h3>Suggestion</h3>
+    <h5 class="text-white bg-gradient-primary-to-secondary p-2">Suggestion</h5>
 
     <label for="name"><b>Name</b></label>
     <input type="text" name="name" class="form-control myc" required>
