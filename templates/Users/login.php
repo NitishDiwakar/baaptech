@@ -83,7 +83,12 @@
                                      <?= $this->Form->button(__('Login'),['class'=>'btn btn-primary rounded-pill btn-lg', 'style' => 'width: 100%']) ?>
                                  </div>
                                  <div class="col-6">
-                                     <a href="signup" class="btn btn-secondary rounded-pill btn-lg" style="width: 100%">Signup</a>
+                                     <?php 
+                                echo $this->Html->link(
+                                    'Signup',
+                                    ['controller' => '', 'action' => 'signup', '_full' => true], ['class' => 'btn btn-secondary rounded-pill btn-lg', 'style' => 'width: 100%']
+                                );
+                                ?>
                                  </div>
                             </div>
                         <!-- </form> -->
