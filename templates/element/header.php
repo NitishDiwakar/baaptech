@@ -12,6 +12,11 @@
                     <i class="bi-list"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <?php
+                        // add active class to nav menu  
+                        $req_uri = $_SERVER['REQUEST_URI'];
+                        $path = substr($req_uri,0,strrpos($req_uri,'/'));
+                    ?>
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0" style="font-size: 80%;">
                         <li class="nav-item">
                             <?php 
@@ -61,9 +66,10 @@
 
                         <li class="nav-item">
                             <?php 
+                                $a = '<span class="badge rounded-pill bg-danger">new</span>';
                                 echo $this->Html->link(
-                                    'Forum',
-                                    ['controller' => 'Forum', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg']
+                                    'Forum '.$a.' ',
+                                    ['controller' => 'Forum', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg', 'escape' => false]
                                 );
                             ?>
                         </li>
