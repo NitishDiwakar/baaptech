@@ -14,33 +14,57 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <?php
                         // add active class to nav menu  
-                        $req_uri = $_SERVER['REQUEST_URI'];
-                        $path = substr($req_uri,0,strrpos($req_uri,'/'));
+                        // $req_uri = $_SERVER['REQUEST_URI'];
+                        // $path = substr($req_uri,0,strrpos($req_uri,'/'));
                     ?>
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0" style="font-size: 80%;">
+                        <?php  
+                            // echo $path;
+                        $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // echo $actual_link; exit;
+
+        // get last segment of url
+        $last_segment = basename(parse_url($url, PHP_URL_PATH));
+        // echo $last_segment;
+        $path = $last_segment;
+                        ?>
                         <li class="nav-item">
-                            <?php 
+                            <?php
+                            $active_check = ''; 
+                            if($path == 'about-us')
+                            {
+                                $active_check = 'active';
+                            }
                                 echo $this->Html->link(
                                     'About Us',
-                                    ['controller' => 'AboutUs', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg']
+                                    ['controller' => 'AboutUs', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg '.$active_check.' ']
                                 );
                             ?>
                         </li>
                         <li class="nav-item"> 
                              <?php 
+                                $active_check = '';
+                                if($path == 'contact-us')
+                                {
+                                    $active_check = 'active';
+                                }
                                 echo $this->Html->link(
                                     'Contact Us',
-                                    ['controller' => 'ContactUs', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg']
+                                    ['controller' => 'ContactUs', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg '.$active_check.' ']
                                 );
                             ?>
                         </li>
                         <!-- <li class="nav-item"><a class="nav-link me-lg-3" href="/login">Login</a></li> -->
                         <li class="nav-item">
                             <?php 
-                            
+                            $active_check = '';
+                            if($path == 'add')
+                                {
+                                    $active_check = 'active';
+                                }
                                 echo $this->Html->link(
                                     'Submit group links',
-                                    ['controller' => 'Groups', 'action' => 'add', '_full' => true], ['class' => 'nav-link me-lg']
+                                    ['controller' => 'Groups', 'action' => 'add', '_full' => true], ['class' => 'nav-link me-lg '.$active_check.' ']
                                 );
                             ?>
 
@@ -48,28 +72,43 @@
 
                         <li class="nav-item">
                             <?php 
+                            $active_check = '';
+                            if($path == 'donation')
+                                {
+                                    $active_check = 'active';
+                                }
                                 echo $this->Html->link(
                                     'Donation',
-                                    ['controller' => 'Donation', 'action' => '', '_full' => true], ['class' => 'nav-link me-lg']
+                                    ['controller' => 'Donation', 'action' => '', '_full' => true], ['class' => 'nav-link me-lg '.$active_check.' ']
                                 );
                             ?>
                         </li>
 
                         <li class="nav-item">
                             <?php 
+                            $active_check = '';
+                            if($path == 'events')
+                                {
+                                    $active_check = 'active';
+                                }
                                 echo $this->Html->link(
                                     'Events',
-                                    ['controller' => 'Events', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg']
+                                    ['controller' => 'Events', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg '.$active_check.' ']
                                 );
                             ?>
                         </li>
 
                         <li class="nav-item">
                             <?php 
+                            $active_check = '';
+                            if($path == 'forum')
+                                {
+                                    $active_check = 'active';
+                                }
                                 $a = '<span class="badge rounded-pill bg-danger">new</span>';
                                 echo $this->Html->link(
                                     'Forum '.$a.' ',
-                                    ['controller' => 'Forum', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg', 'escape' => false]
+                                    ['controller' => 'Forum', 'action' => 'index', '_full' => true], ['class' => 'nav-link me-lg '.$active_check.' ', 'escape' => false]
                                 );
                             ?>
                         </li>
