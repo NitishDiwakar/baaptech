@@ -188,7 +188,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                <a style="text-decoration: none" href="<?php echo $this->Url->build('/manage/donations_pending');?>">Donations (Verified)</a></div>
+                                                <a style="text-decoration: none" href="<?php echo $this->Url->build('/manage/donations_pending');?>">Donations (Pending)</a></div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">₹ <?php 
                                             if($total_donation !== NULL)
                                             {
