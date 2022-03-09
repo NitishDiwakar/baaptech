@@ -98,7 +98,7 @@
                                 <?php 
                                 echo $this->Html->link(
                                     'Forgot Password',
-                                    ['controller' => 'Users', 'action' => 'login/#', '_full' => true], ['class' => 'nav-link me-lg']
+                                    ['controller' => 'Users', 'action' => 'passwordReset', '_full' => true], ['class' => 'nav-link me-lg']
                                 );
                                 ?>
                             </div>

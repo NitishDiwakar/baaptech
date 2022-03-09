@@ -440,5 +440,128 @@ class UsersController extends AppController
     } // end ban user
 
 
+    // password reset
+    public function passwordReset()
+    {
+        // $user = $this->Users->newEmptyEntity();
+        $this->viewBuilder()->setLayout('custom_home');
+        if ($this->request->is('post')) 
+        {
+            $email    = $this->request->getData('email');
+            // Check if there is an account with above email
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM users WHERE email = "'.$email.'"
+             ');
+            $results = $stmt ->fetchAll('assoc');
+            if(!empty($results))
+            {
+                // $user_email = $results[0]["email"];
+                // echo "user found"; exit;
+                $user_email = $results[0]["email"];
+                $user_id = $results[0]["id"];
+                $otp = random_int(100000, 999999);
+                // insert above details in pass_res and send otp to email
+                $stmt = $conn->execute('
+                INSERT INTO pass_res (`user_id`,`otp`, `created`)
+                VALUES 
+                ("'.$user_id.'", "'.$otp.'", NOW())
+                ');
+
+                // store user_id in session
+                $this->request->getSession()->write('temp_uid', $user_id);
+
+                mail($email,"OTP to reset password",$otp);
+                return $this->redirect(['action' => 'verifyOtp']);
+
+            } // end if not empty result
+            if(empty($results))
+            {
+                // $user_email = $results[0]["email"];
+                // echo "user not found"; exit;
+                $this->Flash->custom_error(__('User not found.'));
+                return $this->redirect(['action' => 'passwordReset']);
+            }
+        }
+
+    }
+    // end password reset
+
+    // verify otp
+    public function verifyOtp()
+    {
+        $this->viewBuilder()->setLayout('custom_home');
+
+        if ($this->request->is('post')) 
+        {
+            $otp = $this->request->getData('otp');
+            $temp_uid = $this->request->getData('temp_uid');
+
+            // verify otp
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT * FROM pass_res WHERE otp = "'.$otp.'"
+             ORDER BY id DESC LIMIT 1 ');
+            $results = $stmt ->fetchAll('assoc');
+            if(!empty($results))
+            {
+                // echo "otp matched"; exit;
+                // If OTP matched redirect to enter new password page
+                $temp_otp = $this->request->getSession()->write('temp_otp', $otp);
+                return $this->redirect(['action' => 'passwordResetNewPassword']);
+            }
+
+            if(empty($results))
+            {
+                // echo "otp not matched"; exit;
+                $this->Flash->custom_error(__('Wrong OTP.'));
+                return $this->redirect(['action' => 'verifyOtp']);
+            }
+
+
+        }
+    }
+    // end verify otp
+
+    // password reset retype
+    public function passwordResetNewPassword()
+    {
+        $this->viewBuilder()->setLayout('custom_home');
+
+        if ($this->request->is('post')) 
+        {
+
+            $password = $this->request->getData('password');
+            $password_r = $this->request->getData('password_r');
+            if($password !== $password_r)
+            {
+                $this->Flash->custom_error(__('Please type same password in both fields.'));
+                return $this->redirect(['action' => 'passwordResetNewPassword']);
+            }
+
+        if($password == $password_r)
+        {
+            $session_otp = $this->request->getSession()->read('temp_otp');
+            $conn = ConnectionManager::get('default');
+            $stmt = $conn->execute('SELECT id,user_id FROM pass_res WHERE otp = "'.$session_otp.'" ');
+            $results = $stmt ->fetchAll('assoc');
+
+            $id_of_user = $results[0]['user_id'];
+
+            $pass_new = md5($password);
+            $stmt = $conn->execute('UPDATE users 
+                    SET password = "'.$pass_new.'"
+                WHERE 
+                id = "'.$id_of_user.'" ');
+
+                $this->Flash->custom_success(__('Password changed successfully.'));
+                return $this->redirect(['action' => 'login']);
+        } // end if pass = pass_r
+
+
+        }
+
+    }
+    // end password reset retype
+
+
 
 }
