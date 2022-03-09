@@ -460,6 +460,7 @@ class UsersController extends AppController
                 $user_email = $results[0]["email"];
                 $user_id = $results[0]["id"];
                 $otp = random_int(100000, 999999);
+                $otp = strval($otp);
                 // insert above details in pass_res and send otp to email
                 $stmt = $conn->execute('
                 INSERT INTO pass_res (`user_id`,`otp`, `created`)
