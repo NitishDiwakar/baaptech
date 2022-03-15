@@ -106,7 +106,7 @@ class ManageController extends AppController
             $this->set(compact('total_users'));
 
         // Count pending gruop submissions
-            $stmt = $conn->execute('SELECT COUNT(*) as total FROM `groups`  WHERE  is_approved = 0 
+            $stmt = $conn->execute('SELECT COUNT(*) as total FROM `groups`  WHERE  is_approved = 0 AND is_deleted = 0 
              ');
             $pending_groups = $stmt ->fetchAll('assoc');
             // echo $total_users['count'];
